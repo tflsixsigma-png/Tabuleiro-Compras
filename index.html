@@ -1,374 +1,118 @@
-<!-- Chosen Palette: Estratégia Corporativa (Azul Marinho, Cinza Ardósia, Branco Puro, Destaques em Âmbar) -->
-<!-- Application Structure Plan:
-    1. **Contexto Estratégico (Intro)**: Explicação breve sobre o equilíbrio de poder entre comprador e fornecedor.
-    2. **Localizador de Estratégia (Motor Interativo)**: Ferramenta central onde o utilizador define o "Poder de Compra" e o "Poder do Fornecedor" através de seletores deslizantes. Um gráfico de dispersão posiciona a categoria em tempo real.
-    3. **Explorador do Tabuleiro**: Uma grelha 2x2 interativa que representa as quatro grandes estratégias. Ao clicar num quadrante, a aplicação revela as Alavancas e Métodos específicos.
-    4. **Painel de Detalhes Táticos**: Conteúdo dinâmico que detalha os 64 métodos.
-    5. **Rodapé de Atribuição**: Inclusão dos créditos educacionais conforme solicitado.
--->
-<!-- Visualization & Content Choices:
-    1. **Matriz de Poder (Scatter Plot)**: Objetivo: Localização estratégica. Método: Chart.js.
-    2. **Distribuição de Gastos (Doughnut)**: Objetivo: Contextualizar a importância das categorias. Método: Chart.js.
-    3. **O Tabuleiro (CSS Grid)**: Objetivo: Navegação intuitiva via Tailwind Grid.
-    4. **Cards de Metodologia**: Conteúdo textual dinâmico via JS.
--->
-<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabuleiro de Xadrez de Compras | Prof. Thiago Lima</title>
+    <title>Tabuleiro de Xadrez de Compras e Negociação | Prof. Thiago Lima</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #fcfcfd;
-            color: #1e293b;
-        }
-
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 650px;
-            height: 380px;
-            max-height: 450px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Custom Range Slider */
-        input[type=range] {
-            -webkit-appearance: none;
-            width: 100%;
-            background: transparent;
-        }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 22px;
-            width: 22px;
-            border-radius: 50%;
-            background: #1e3a8a;
-            cursor: pointer;
-            margin-top: -8px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border: 2px solid #fff;
-        }
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 6px;
-            cursor: pointer;
-            background: #e2e8f0;
-            border-radius: 4px;
-        }
-
-        .board-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .board-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 25px 30px -10px rgba(0, 0, 0, 0.1);
-        }
-
-        .fade-in {
-            animation: fadeIn 0.6s ease-out forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #fcfcfd; color: #1e293b; }
+        .chart-container { position: relative; width: 100%; max-width: 650px; height: 380px; margin: auto; }
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 22px; width: 22px; border-radius: 50%; background: #1e3a8a; cursor: pointer; margin-top: -8px; border: 2px solid #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; cursor: pointer; background: #e2e8f0; border-radius: 4px; }
+        .board-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .board-card:hover { transform: translateY(-6px); box-shadow: 0 25px 30px -10px rgba(0,0,0,0.1); }
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="flex flex-col min-h-screen selection:bg-blue-100">
 
-    <!-- Navegação -->
     <nav class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-18 py-4">
                 <div class="flex items-center gap-2">
                     <span class="text-2xl">♟️</span>
-                    <span class="text-xl font-extrabold text-blue-900 tracking-tight">Estratégia de Procurement</span>
+                    <span class="text-xl font-extrabold text-blue-900 tracking-tight">Kearney: Compras & Negociação</span>
                 </div>
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="#simulador" class="text-gray-500 hover:text-blue-900 font-semibold text-sm transition">Simulador</a>
-                    <a href="#framework" class="text-gray-500 hover:text-blue-900 font-semibold text-sm transition">O Tabuleiro</a>
-                    <a href="#contexto" class="text-gray-500 hover:text-blue-900 font-semibold text-sm transition">Contexto</a>
+                    <a href="#framework" class="text-gray-500 hover:text-blue-900 font-semibold text-sm transition">O Framework</a>
+                    <a href="#analise" class="text-gray-500 hover:text-blue-900 font-semibold text-sm transition">Análise de Valor</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <header class="bg-white">
-        <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight mb-6">
-                O Tabuleiro de Xadrez de <span class="text-blue-800">Compras</span>
+    <header class="bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl sm:text-7xl font-extrabold text-slate-900 tracking-tight mb-8">
+                Domine sua Estratégia de <span class="text-blue-800">Compras e Negociação</span>
             </h1>
-            <p class="max-w-3xl mx-auto text-xl text-slate-500 leading-relaxed mb-10">
-                Uma ferramenta interativa para navegar pelas 64 metodologias estratégicas da Kearney, baseada no equilíbrio de poder entre compradores e fornecedores.
+            <p class="max-w-3xl mx-auto text-xl text-slate-500 leading-relaxed mb-12">
+                Identifique as alavancas táticas para cada cenário. Do gerenciamento de gastos à mudança na natureza da procura, explore os 64 métodos do Tabuleiro de Xadrez.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#simulador" class="px-8 py-3 bg-blue-900 text-white font-bold rounded-lg shadow-lg hover:bg-blue-800 transition">
-                    Ver meu Posicionamento
-                </a>
-                <a href="#framework" class="px-8 py-3 bg-white border-2 border-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-50 transition">
-                    Explorar Métodos
-                </a>
+                <a href="#simulador" class="px-10 py-4 bg-blue-900 text-white font-bold rounded-xl shadow-xl hover:bg-blue-800 transition-all transform hover:scale-105">Iniciar Diagnóstico</a>
+                <a href="#framework" class="px-10 py-4 bg-white border-2 border-slate-200 text-slate-700 font-bold rounded-xl hover:bg-slate-50 transition-all">Explorar Métodos</a>
             </div>
         </div>
     </header>
 
-    <!-- SECTION 1: Simulador -->
-    <section id="simulador" class="py-16 bg-slate-50 border-y border-slate-100">
+    <section id="simulador" class="py-20 bg-slate-50 border-y border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-12 gap-10">
-                
+            <div class="grid lg:grid-cols-12 gap-12">
                 <div class="lg:col-span-5 bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
-                    <h2 class="text-2xl font-bold text-slate-900 mb-6">Localizador Estratégico</h2>
-                    
-                    <div class="space-y-8">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-2">Simulador de Poder</h2>
+                    <p class="text-slate-500 text-sm mb-10">Mova os cursores para refletir a realidade da negociação.</p>
+                    <div class="space-y-10">
                         <div>
-                            <div class="flex justify-between items-end mb-3">
-                                <label class="text-xs font-bold text-slate-500 uppercase">Poder do Comprador (X)</label>
-                                <span id="valCompra" class="text-xl font-bold text-blue-900">50%</span>
+                            <div class="flex justify-between items-end mb-4">
+                                <label class="text-sm font-bold text-slate-700 uppercase">Poder de Compra (X)</label>
+                                <span id="valCompra" class="text-2xl font-black text-blue-900">50%</span>
                             </div>
-                            <input type="range" id="slideCompra" min="0" max="100" value="50" class="w-full">
+                            <input type="range" id="slideCompra" min="0" max="100" value="50">
                         </div>
-
                         <div>
-                            <div class="flex justify-between items-end mb-3">
-                                <label class="text-xs font-bold text-slate-500 uppercase">Poder do Fornecedor (Y)</label>
-                                <span id="valFornecedor" class="text-xl font-bold text-blue-900">50%</span>
+                            <div class="flex justify-between items-end mb-4">
+                                <label class="text-sm font-bold text-slate-700 uppercase">Poder do Fornecedor (Y)</label>
+                                <span id="valFornecedor" class="text-2xl font-black text-blue-900">50%</span>
                             </div>
-                            <input type="range" id="slideFornecedor" min="0" max="100" value="50" class="w-full">
+                            <input type="range" id="slideFornecedor" min="0" max="100" value="50">
                         </div>
                     </div>
-
-                    <div id="resultadoBox" class="mt-10 p-5 rounded-2xl border-2 transition-all bg-slate-50 border-slate-200">
-                        <span class="text-[10px] font-bold uppercase text-slate-400">Recomendação</span>
-                        <h3 id="resTitulo" class="text-xl font-black text-slate-900 mt-1">Ajuste os Sliders</h3>
-                        <p id="resDesc" class="text-xs text-slate-600 mt-2">Veja onde sua categoria se encaixa no xadrez.</p>
-                        <button onclick="scrollToFramework()" id="btnExplorar" class="hidden mt-4 w-full py-2 bg-white border border-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-50 transition text-xs">
-                            Explorar Alavancas ↓
-                        </button>
+                    <div id="resultadoBox" class="mt-12 p-6 rounded-2xl border-2 transition-all bg-slate-50 border-slate-200">
+                        <h3 id="resTitulo" class="text-2xl font-extrabold text-slate-900">Ajuste os parâmetros</h3>
+                        <p id="resDesc" class="text-sm text-slate-600 mt-2">Veja a orientação estratégica e tática recomendada.</p>
+                        <button onclick="focarNoFramework()" id="btnExplorar" class="hidden mt-6 w-full py-3 bg-white border border-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-50 transition">Ver Métodos Detalhados ↓</button>
                     </div>
                 </div>
-
                 <div class="lg:col-span-7 bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
-                    <div class="chart-container">
-                        <canvas id="matrizChart"></canvas>
-                    </div>
+                    <div class="chart-container"><canvas id="matrizChart"></canvas></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 2: Framework Explorer -->
-    <section id="framework" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-extrabold text-slate-900">Os Quatro Quadrantes</h2>
-                <p class="text-slate-500 mt-2">Clique para detalhar os métodos de cada estratégia.</p>
+    <section id="framework" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 text-center mb-16">
+            <h2 class="text-4xl font-extrabold text-slate-900">As 4 Estratégias e Táticas de Negociação</h2>
+            <p class="mt-4 text-slate-500">Clique num quadrante para explorar as alavancas e métodos específicos.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto px-4" id="cardsGrid">
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-                <div onclick="selecionarQuadrante('q1')" id="card-q1" class="board-card p-6 rounded-2xl border-2 border-slate-100 border-l-8 border-l-red-500 cursor-pointer hover:bg-red-50">
-                    <h3 class="font-bold text-lg">Mudar Natureza da Procura</h3>
-                    <p class="text-xs text-slate-500 mt-1">Fornecedor Forte / Comprador Fraco</p>
+        <div id="detalhesContainer" class="hidden mt-16 max-w-5xl mx-auto px-4 fade-in">
+            <div class="bg-slate-900 rounded-[2rem] overflow-hidden shadow-2xl">
+                <div class="px-10 py-8 text-white flex justify-between items-center border-b border-white/10">
+                    <h3 id="detalhesTitulo" class="text-3xl font-black">Título</h3>
+                    <button onclick="fecharDetalhes()" class="p-3 bg-white/10 hover:bg-white/20 rounded-full text-xs font-bold px-4">FECHAR</button>
                 </div>
-                <div onclick="selecionarQuadrante('q2')" id="card-q2" class="board-card p-6 rounded-2xl border-2 border-slate-100 border-l-8 border-l-purple-500 cursor-pointer hover:bg-purple-50">
-                    <h3 class="font-bold text-lg">Procurar Vantagem Conjunta</h3>
-                    <p class="text-xs text-slate-500 mt-1">Fornecedor Forte / Comprador Forte</p>
-                </div>
-                <div onclick="selecionarQuadrante('q3')" id="card-q3" class="board-card p-6 rounded-2xl border-2 border-slate-100 border-l-8 border-l-slate-400 cursor-pointer hover:bg-slate-50">
-                    <h3 class="font-bold text-lg">Gerir Gastos</h3>
-                    <p class="text-xs text-slate-500 mt-1">Fornecedor Fraco / Comprador Fraco</p>
-                </div>
-                <div onclick="selecionarQuadrante('q4')" id="card-q4" class="board-card p-6 rounded-2xl border-2 border-slate-100 border-l-8 border-l-blue-600 cursor-pointer hover:bg-blue-50">
-                    <h3 class="font-bold text-lg">Alavancar Competição</h3>
-                    <p class="text-xs text-slate-500 mt-1">Fornecedor Fraco / Comprador Forte</p>
-                </div>
-            </div>
-
-            <div id="detalhesContainer" class="hidden mt-12 max-w-4xl mx-auto fade-in">
-                <div class="bg-slate-900 rounded-3xl overflow-hidden shadow-2xl p-8">
-                    <div class="flex justify-between items-center border-b border-white/10 pb-6 mb-6">
-                        <div>
-                            <h3 id="detalhesTitulo" class="text-2xl font-black text-white">Estratégia</h3>
-                            <p id="detalhesSub" class="text-blue-400 text-xs font-bold uppercase tracking-widest mt-1"></p>
-                        </div>
-                        <button onclick="fecharDetalhes()" class="text-white/40 hover:text-white">&times; Fechar</button>
-                    </div>
-                    <div id="alavancasGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Conteúdo dinâmico -->
-                    </div>
-                </div>
+                <div class="p-10"><div id="alavancasGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div></div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 3: Contexto -->
-    <section id="contexto" class="py-16 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-2xl font-bold mb-8">Por que usar o Tabuleiro?</h2>
-            <div class="max-w-md mx-auto h-[300px] mb-8">
-                <canvas id="contextChart"></canvas>
-            </div>
-            <p class="text-sm text-slate-600 max-w-2xl mx-auto">
-                O framework ajuda a categorizar o esforço de procurement. Enquanto o "Gerir Gastos" foca em eficiência, o "Mudar Natureza" exige inovação técnica profunda.
-            </p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-white py-12 border-t border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="mb-6">
-                <span class="inline-block px-4 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full border border-blue-100">
-                    Material Didático
-                </span>
-            </div>
-            <p class="text-slate-800 font-bold text-lg">
-                Desenvolvido por Professor Thiago Lima para fins educacionais
-            </p>
-            <p class="text-slate-400 text-xs mt-2 uppercase tracking-tighter">
-                Baseado no framework The Purchasing Chessboard® da Kearney
-            </p>
-            <div class="mt-8 pt-8 border-t border-slate-100 flex justify-center gap-6">
-                <span class="text-[10px] text-slate-300">© 2024 Procurement Academy</span>
-                <span class="text-[10px] text-slate-300">Gestão Estratégica de Compras</span>
-            </div>
-        </div>
+    <footer class="bg-white py-12 border-t border-slate-100 text-center">
+        <p class="text-slate-500 font-semibold">Desenvolvido por Prof. Thiago Lima</p>
+        <p class="text-slate-400 text-xs mt-2">Baseado no framework The Purchasing Chessboard® da Kearney.</p>
     </footer>
 
     <script>
-        // --- DADOS ---
+        // Lógica de dados e gráficos (mesma lógica funcional anterior com nomes atualizados)
         const strategies = {
-            q1: {
-                titulo: "Mudar Natureza da Procura",
-                sub: "Poder do Fornecedor Alto • Poder de Compra Baixo",
-                alavancas: [
-                    { nome: "Inovação Disruptiva", métodos: ["Substituir Materiais", "Redesenhar para Eficiência", "Inovação conjunta"] },
-                    { nome: "Integração Vertical", métodos: ["Make vs Buy", "Adquirir Fornecedor", "Joint Venture"] }
-                ]
-            },
-            q2: {
-                titulo: "Procurar Vantagem Conjunta",
-                sub: "Poder do Fornecedor Alto • Poder de Compra Alto",
-                alavancas: [
-                    { nome: "Cadeia de Valor", métodos: ["Eliminar Desperdício", "Otimizar Logística", "R&D Conjunto"] },
-                    { nome: "Partilha de Lucros", métodos: ["Contratos de Incentivo", "Gain Sharing", "Open Book Costing"] }
-                ]
-            },
-            q3: {
-                titulo: "Gerir Gastos",
-                sub: "Poder do Fornecedor Baixo • Poder de Compra Baixo",
-                alavancas: [
-                    { nome: "Eficiência", métodos: ["Padronização", "Compliance", "Automação de Pedidos"] },
-                    { nome: "Consolidação", métodos: ["Agrupar Volumes", "Consórcios de Compra", "Benchmark de Preços"] }
-                ]
-            },
-            q4: {
-                titulo: "Alavancar Competição",
-                sub: "Poder do Fornecedor Baixo • Poder de Compra Alto",
-                alavancas: [
-                    { nome: "Concorrência", métodos: ["RFP/RFQ Agressivo", "Leilão Reverso", "LCC Sourcing"] },
-                    { nome: "Target Pricing", métodos: ["Should-Cost Modeling", "Análise de Fatores de Custo", "Benchmarking Global"] }
-                ]
-            }
-        };
-
-        // --- CHART: MATRIZ ---
-        const ctxMatriz = document.getElementById('matrizChart').getContext('2d');
-        const pluginQuadrantes = {
-            id: 'quadrantes',
-            beforeDraw: (chart) => {
-                const {ctx, chartArea: {top, bottom, left, right, width, height}} = chart;
-                const midX = left + width / 2;
-                const midY = top + height / 2;
-                ctx.save();
-                ctx.fillStyle = 'rgba(239, 68, 68, 0.05)'; ctx.fillRect(left, top, width/2, height/2);
-                ctx.fillStyle = 'rgba(168, 85, 247, 0.05)'; ctx.fillRect(midX, top, width/2, height/2);
-                ctx.fillStyle = 'rgba(100, 116, 139, 0.05)'; ctx.fillRect(left, midY, width/2, height/2);
-                ctx.fillStyle = 'rgba(37, 99, 235, 0.05)'; ctx.fillRect(midX, midY, width/2, height/2);
-                ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 2;
-                ctx.beginPath(); ctx.moveTo(midX, top); ctx.lineTo(midX, bottom); ctx.stroke();
-                ctx.beginPath(); ctx.moveTo(left, midY); ctx.lineTo(right, midY); ctx.stroke();
-                ctx.restore();
-            }
-        };
-
-        const matrizChart = new Chart(ctxMatriz, {
-            type: 'scatter',
-            data: { datasets: [{ data: [{x: 50, y: 50}], backgroundColor: '#1e3a8a', pointRadius: 10 }] },
-            options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: 0, max: 100, display: false }, y: { min: 0, max: 100, display: false } }, plugins: { legend: { display: false } } },
-            plugins: [pluginQuadrantes]
-        });
-
-        // --- CHART: CONTEXTO ---
-        const ctxCtx = document.getElementById('contextChart').getContext('2d');
-        new Chart(ctxCtx, {
-            type: 'doughnut',
-            data: { labels: ['Eficiência', 'Competição', 'Estratégia'], datasets: [{ data: [60, 25, 15], backgroundColor: ['#94a3b8', '#3b82f6', '#1e3a8a'] }] },
-            options: { responsive: true, maintainAspectRatio: false }
-        });
-
-        // --- LOGICA ---
-        const sCompra = document.getElementById('slideCompra');
-        const sFornecedor = document.getElementById('slideFornecedor');
-        const resTitulo = document.getElementById('resTitulo');
-        const resDesc = document.getElementById('resDesc');
-        const btnExplorar = document.getElementById('btnExplorar');
-
-        function atualizar() {
-            const x = sCompra.value;
-            const y = sFornecedor.value;
-            document.getElementById('valCompra').innerText = x + '%';
-            document.getElementById('valFornecedor').innerText = y + '%';
-            matrizChart.data.datasets[0].data[0] = {x, y};
-            matrizChart.update();
-
-            let strategy = "";
-            let qKey = "";
-            if (y > 50) {
-                if (x > 50) { qKey = "q2"; strategy = "Vantagem Conjunta"; }
-                else { qKey = "q1"; strategy = "Mudar Natureza"; }
-            } else {
-                if (x > 50) { qKey = "q4"; strategy = "Alavancar Competição"; }
-                else { qKey = "q3"; strategy = "Gerir Gastos"; }
-            }
-            resTitulo.innerText = strategy;
-            btnExplorar.classList.remove('hidden');
-            btnExplorar.onclick = () => selecionarQuadrante(qKey);
-        }
-
-        sCompra.oninput = atualizar;
-        sFornecedor.oninput = atualizar;
-        atualizar();
-
-        function selecionarQuadrante(id) {
-            const data = strategies[id];
-            const container = document.getElementById('detalhesContainer');
-            const grid = document.getElementById('alavancasGrid');
-            document.getElementById('detalhesTitulo').innerText = data.titulo;
-            document.getElementById('detalhesSub').innerText = data.sub;
-            grid.innerHTML = '';
-            data.alavancas.forEach(al => {
-                const div = document.createElement('div');
-                div.className = "bg-white/5 p-4 rounded-xl border border-white/10";
-                div.innerHTML = `<h4 class="text-white font-bold mb-3">${al.nome}</h4><ul class="space-y-2">${al.métodos.map(m => `<li class="text-xs text-slate-400">• ${m}</li>`).join('')}</ul>`;
-                grid.appendChild(div);
-            });
-            container.classList.remove('hidden');
-            container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        function fecharDetalhes() { document.getElementById('detalhesContainer').classList.add('hidden'); }
-        function scrollToFramework() { document.getElementById('framework').scrollIntoView({ behavior: 'smooth' }); }
-    </script>
-</body>
-</html>
+            q1: { titulo: "Mudar Natureza da Procura", cor: "#ef4444", alavancas: [{ nome: "Inovação", métodos: ["Substituir Materiais", "Redesenhar Especificações"] }, { nome: "Integração", métodos: ["Make or Buy", "Verticalização"] }] },
+            q2: { titulo: "Procurar Vantagem Conjunta", cor: "#a855f7", alavancas: [{ nome: "Colaboração", métodos: ["P&D Conjunto", "Value Chain Management"] }, { nome: "Custos", métodos: ["Open Book", "Should-Cost Analysis"] }] },
+            q3: { titulo: "Gerir Gastos", cor: "#64748b", alavancas: [{
