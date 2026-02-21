@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plano Tático de Negociação | Prof. Thiago Lima</title>
+    <title>Navegador de Negociação Estratégica | Prof. Thiago Lima</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -26,60 +26,96 @@
 <body>
 
     <nav class="bg-slate-900 text-white py-4 px-6 flex justify-between items-center no-print">
-        <span class="font-black text-sm uppercase tracking-tighter italic text-blue-400">Strategic Negotiation Assistant</span>
+        <span class="font-black text-sm uppercase tracking-tighter italic text-blue-400">Strategic Negotiation Navigator</span>
         <span class="text-[10px] font-bold opacity-70 uppercase tracking-widest">Prof. Thiago Lima</span>
     </nav>
 
     <header class="bg-white py-12 px-6 border-b border-slate-100 text-center">
-        <h1 class="text-3xl font-black text-slate-900 mb-2 uppercase tracking-tighter">Plano de Ação: Negociação Estratégica</h1>
-        <p class="text-slate-500 text-xs font-medium italic">Documento Técnico Gerencial - Desenvolvido por Prof. Thiago Lima</p>
+        <h1 class="text-3xl font-black text-slate-900 mb-2 uppercase tracking-tighter">Relatório de Diagnóstico e Planejamento</h1>
+        <p class="text-slate-500 text-xs font-medium italic">Framework de Gestão de Suprimentos - Prof. Thiago Lima</p>
     </header>
 
     <main class="max-w-7xl mx-auto px-6 py-12">
 
         <section class="grid lg:grid-cols-2 gap-12 mb-16 no-print">
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 section-card">
-                <h3 class="text-lg font-bold mb-6 italic">1. Contextualização</h3>
+                <h3 class="text-lg font-bold mb-6 italic">1. Parâmetros da Categoria</h3>
                 <div class="space-y-4">
-                    <input type="text" id="catNome" placeholder="Categoria (Ex: Logística Zona Sul)" class="w-full border-b p-2 outline-none focus:border-blue-500 font-bold">
-                    <input type="text" id="catSpend" placeholder="Spend Anual..." class="w-full border-b p-2 outline-none focus:border-blue-500">
-                    <div class="grid grid-cols-2 gap-2 pt-4">
-                        <button onclick="setKraljic('Estratégico')" class="p-2 border rounded-lg text-[10px] font-bold hover:bg-slate-50">ESTRATÉGICO</button>
-                        <button onclick="setKraljic('Alavancagem')" class="p-2 border rounded-lg text-[10px] font-bold hover:bg-slate-50">ALAVANCAGEM</button>
-                        <button onclick="setKraljic('Gargalo')" class="p-2 border rounded-lg text-[10px] font-bold hover:bg-slate-50">GARGALO</button>
-                        <button onclick="setKraljic('Não Crítico')" class="p-2 border rounded-lg text-[10px] font-bold hover:bg-slate-50">NÃO CRÍTICO</button>
+                    <input type="text" id="catNome" placeholder="Categoria (Ex: Embalagens)" class="w-full border-b p-2 outline-none focus:border-blue-500 font-bold">
+                    <input type="text" id="catSpend" placeholder="Spend Médio..." class="w-full border-b p-2 outline-none focus:border-blue-500">
+                    <div class="pt-4">
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-4">Classificação Kraljic</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="setKraljic('Estratégico')" class="p-2 border rounded-lg text-[10px] font-bold hover:bg-blue-900 hover:text-white transition">ESTRATÉGICO</button>
+                            <button onclick="setKraljic('Alavancagem')" class="p-2 border rounded-lg text-[10px] font-bold hover:bg-blue-900 hover:text-white transition">ALAVANCAGEM</button>
+                            <button onclick="setKraljic('Gargalo')" class="p-2 border rounded-lg text-[10px] font-bold hover:bg-blue-900 hover:text-white transition">GARGALO</button>
+                            <button onclick="setKraljic('Não Crítico')" class="p-2 border rounded-lg text-[10px] font-bold hover:bg-blue-900 hover:text-white transition">NÃO CRÍTICO</button>
+                        </div>
                     </div>
-                    <div class="mt-2 text-xs">Kraljic: <span id="kraljicRes" class="font-bold">Pendente</span></div>
                 </div>
             </div>
 
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 section-card">
-                <h3 class="text-lg font-bold mb-6 italic">2. Análise de Poder</h3>
-                <div class="space-y-4">
-                    <div class="flex justify-between text-[10px] font-bold"><span>Comprador</span> <span id="vX">50%</span></div>
-                    <input type="range" id="x" min="0" max="100" value="50" class="w-full accent-blue-600">
-                    <div class="flex justify-between text-[10px] font-bold"><span>Fornecedor</span> <span id="vY">50%</span></div>
-                    <input type="range" id="y" min="0" max="100" value="50" class="w-full accent-red-600">
+                <h3 class="text-lg font-bold mb-6 italic">2. Balanço de Poder</h3>
+                <div class="space-y-6">
+                    <div>
+                        <label class="flex justify-between text-[10px] font-bold uppercase"><span>Poder do Comprador</span> <span id="vX">50%</span></label>
+                        <input type="range" id="x" min="0" max="100" value="50" class="w-full accent-blue-600">
+                    </div>
+                    <div>
+                        <label class="flex justify-between text-[10px] font-bold uppercase"><span>Poder do Fornecedor</span> <span id="vY">50%</span></label>
+                        <input type="range" id="y" min="0" max="100" value="50" class="w-full accent-red-600">
+                    </div>
                 </div>
                 <div class="chart-container mt-4"><canvas id="mainChart"></canvas></div>
             </div>
         </section>
 
-        <section class="bg-white p-10 rounded-[2.5rem] border border-slate-200 mb-16 shadow-sm section-card">
-            <h2 class="text-2xl font-black text-slate-900 mb-8 border-b pb-4 uppercase tracking-tighter">3. Planejamento Tático</h2>
-            <div class="grid md:grid-cols-2 gap-10">
-                <textarea id="batna" placeholder="BATNA (Melhor Alternativa)..." class="bg-slate-50 border rounded-xl p-4 text-sm"></textarea>
-                <textarea id="reserva" placeholder="Valor de Reserva (Limite)..." class="bg-slate-50 border rounded-xl p-4 text-sm"></textarea>
-                <textarea id="zopa" placeholder="ZOPA (Zona de Acordo)..." class="bg-slate-50 border rounded-xl p-4 text-sm"></textarea>
-                <textarea id="concessoes" placeholder="Concessões e Trocas..." class="bg-slate-50 border rounded-xl p-4 text-sm"></textarea>
+        <section class="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl border-t-4 border-blue-500">
+            <h3 class="text-xs font-black uppercase tracking-widest text-blue-400 mb-4">Veredito do Simulador</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <p class="text-[10px] uppercase font-bold text-slate-400">Diretriz Estratégica:</p>
+                    <h2 id="resEstrategia" class="text-2xl font-black italic tracking-tighter">Ajuste os controles...</h2>
+                </div>
+                <div>
+                    <p class="text-[10px] uppercase font-bold text-slate-400">Recomendação Kraljic:</p>
+                    <p id="resKraljicText" class="text-sm text-slate-300">Selecione uma classificação para análise de risco.</p>
+                </div>
             </div>
         </section>
 
-        <h3 class="text-2xl font-black uppercase tracking-tighter mb-8 text-center no-print">4. Tabuleiro de 64 Métodos (Kearney)</h3>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <section class="bg-white p-10 rounded-[2.5rem] border border-slate-200 mb-16 shadow-sm section-card">
+            <h2 class="text-2xl font-black text-slate-900 mb-8 border-b pb-4 uppercase">3. Preparação para a Mesa de Negociação</h2>
             
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase text-blue-700">BATNA</h4>
+                    <p class="text-[9px] text-slate-500 italic">Melhor Alternativa ao Acordo: Qual sua opção B caso esta negociação falhe?</p>
+                    <textarea id="batna" class="w-full bg-slate-50 border rounded-xl p-4 text-sm"></textarea>
+                </div>
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase text-red-700">Valor de Reserva</h4>
+                    <p class="text-[9px] text-slate-500 italic">Ponto de Abandono: Qual o valor máximo que você aceita pagar sem levantar da mesa?</p>
+                    <textarea id="reserva" class="w-full bg-slate-50 border rounded-xl p-4 text-sm"></textarea>
+                </div>
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase text-green-700">ZOPA</h4>
+                    <p class="text-[9px] text-slate-500 italic">Zona de Possível Acordo: O intervalo entre o seu limite e o limite do fornecedor.</p>
+                    <textarea id="zopa" class="w-full bg-slate-50 border rounded-xl p-4 text-sm"></textarea>
+                </div>
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase text-amber-700">Moedas de Troca</h4>
+                    <p class="text-[9px] text-slate-500 italic">Concessões: O que você pode ceder (ex: volume) para ganhar o que deseja (ex: preço)?</p>
+                    <textarea id="concessoes" class="w-full bg-slate-50 border rounded-xl p-4 text-sm"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <h3 class="text-2xl font-black uppercase tracking-tighter mb-8 text-center no-print">4. Seleção das 16 Alavancas de Valor</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 no-print">
             <div class="strategy-col space-y-3">
-                <div class="p-3 bg-red-600 text-white rounded-xl font-bold text-[10px] uppercase text-center shadow-lg">Mudar Natureza</div>
+                <div class="p-3 bg-red-600 text-white rounded-xl font-bold text-[10px] uppercase text-center">Mudar Natureza</div>
                 <details class="bg-white border rounded-xl overflow-hidden"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between">Inovação Disruptiva <span>+</span></summary>
                     <div class="p-4 text-slate-600 border-t bg-slate-50"><div class="method-item">Criar novos produtos</div><div class="method-item">Substituir materiais</div><div class="method-item">Redesenhar para eficiência</div><div class="method-item">Inovação de fornecedor</div></div></details>
                 <details class="bg-white border rounded-xl overflow-hidden"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between">Re-especificação <span>+</span></summary>
@@ -89,9 +125,8 @@
                 <details class="bg-white border rounded-xl overflow-hidden"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between">Gestão de Risco <span>+</span></summary>
                     <div class="p-4 text-slate-600 border-t bg-slate-50"><div class="method-item">Hedge de preços</div><div class="method-item">Dual Sourcing</div><div class="method-item">Buffer de estoque</div><div class="method-item">Contratos plurianuais</div></div></details>
             </div>
-
             <div class="strategy-col space-y-3">
-                <div class="p-3 bg-purple-600 text-white rounded-xl font-bold text-[10px] uppercase text-center shadow-lg">Vantagem Conjunta</div>
+                <div class="p-3 bg-purple-600 text-white rounded-xl font-bold text-[10px] uppercase text-center">Vantagem Conjunta</div>
                 <details class="bg-white border rounded-xl overflow-hidden"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between">Cadeia de Valor <span>+</span></summary>
                     <div class="p-4 text-slate-600 border-t bg-slate-50"><div class="method-item">Eliminar desperdício</div><div class="method-item">Otimizar logística</div><div class="method-item">Produção sincronizada</div><div class="method-item">P&D conjunto</div></div></details>
                 <details class="bg-white border rounded-xl overflow-hidden"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between">Operações Integradas <span>+</span></summary>
@@ -101,9 +136,8 @@
                 <details class="bg-white border rounded-xl overflow-hidden"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between">Partilha de Lucros <span>+</span></summary>
                     <div class="p-4 text-slate-600 border-t bg-slate-50"><div class="method-item">Contratos incentivo</div><div class="method-item">Gain sharing</div><div class="method-item">Target costing</div><div class="method-item">Investimento conjunto</div></div></details>
             </div>
-
             <div class="strategy-col space-y-3">
-                <div class="p-3 bg-slate-600 text-white rounded-xl font-bold text-[10px] uppercase text-center shadow-lg">Gerir Gastos</div>
+                <div class="p-3 bg-slate-600 text-white rounded-xl font-bold text-[10px] uppercase text-center">Gerir Gastos</div>
                 <details class="bg-white border rounded-xl overflow-hidden"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between">Gestão da Demanda <span>+</span></summary>
                     <div class="p-4 text-slate-600 border-t bg-slate-50"><div class="method-item">Visibilidade de gastos</div><div class="method-item">Compliance política</div><div class="method-item">Reduzir consumo</div><div class="method-item">Eliminar Maverick Spend</div></div></details>
                 <details class="bg-white border rounded-xl overflow-hidden"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between">Co-Sourcing <span>+</span></summary>
@@ -113,9 +147,8 @@
                 <details class="bg-white border rounded-xl overflow-hidden"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between">Agregação Volume <span>+</span></summary>
                     <div class="p-4 text-slate-600 border-t bg-slate-50"><div class="method-item">Bundling unidades</div><div class="method-item">Bundling categorias</div><div class="method-item">Acordos plurianuais</div><div class="method-item">Redução SKU</div></div></details>
             </div>
-
             <div class="strategy-col space-y-3">
-                <div class="p-3 bg-blue-600 text-white rounded-xl font-bold text-[10px] uppercase text-center shadow-lg">Alavancar Competição</div>
+                <div class="p-3 bg-blue-600 text-white rounded-xl font-bold text-[10px] uppercase text-center">Alavancar Competição</div>
                 <details class="bg-white border rounded-xl overflow-hidden"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between">Globalização <span>+</span></summary>
                     <div class="p-4 text-slate-600 border-t bg-slate-50"><div class="method-item">LCC Sourcing</div><div class="method-item">Gabinete Global</div><div class="method-item">Mercados Emergentes</div><div class="method-item">Offsets comerciais</div></div></details>
                 <details class="bg-white border rounded-xl overflow-hidden"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between">Concursos <span>+</span></summary>
@@ -129,30 +162,56 @@
 
         <section class="mb-16 no-print ia-box">
             <div class="bg-slate-900 p-10 rounded-[2.5rem] text-white shadow-2xl">
-                <h3 class="text-xl font-bold mb-6 flex items-center gap-3">✨ Assistente Gemini Consultivo</h3>
-                <textarea id="aiInput" rows="3" class="w-full bg-white/5 border border-white/20 rounded-2xl p-4 text-sm mb-4" placeholder="Descreva o cenário para análise..."></textarea>
-                <button onclick="gerarRecomendacao()" class="bg-blue-600 px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest">Solicitar Análise Inteligente</button>
+                <h3 class="text-xl font-bold mb-4">✨ Assistente Gemini</h3>
+                <textarea id="aiInput" rows="3" class="w-full bg-white/5 border border-white/20 rounded-2xl p-4 text-sm mb-4" placeholder="Descreva o cenário..."></textarea>
+                <button onclick="gerarRecomendacao()" class="bg-blue-600 px-8 py-3 rounded-xl font-black text-[10px] uppercase">Solicitar Análise</button>
                 <div id="aiResponse" class="mt-6 p-4 bg-white/5 rounded-xl text-xs italic hidden border border-white/10"></div>
             </div>
         </section>
 
         <div class="text-center no-print pb-20">
-            <button onclick="window.print()" class="bg-slate-900 text-white px-16 py-6 rounded-2xl font-black text-xs shadow-2xl uppercase tracking-widest">Gerar Relatório Estratégico (PDF)</button>
+            <button onclick="window.print()" class="bg-slate-900 text-white px-16 py-6 rounded-2xl font-black text-xs shadow-2xl uppercase tracking-widest">Gerar Relatório Final (PDF)</button>
         </div>
     </main>
-
-    <footer class="bg-white py-12 border-t border-slate-100 text-center no-print">
-        <p class="font-bold text-slate-800">Prof. Thiago Lima</p>
-        <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-2">Doutor e Pesquisador | MBA & Negociação Estratégica</p>
-    </footer>
 
     <script>
         const ctx = document.getElementById('mainChart').getContext('2d');
         const chart = new Chart(ctx, { type: 'scatter', data: { datasets: [{ data: [{x: 50, y: 50}], backgroundColor: '#1e3a8a', pointRadius: 10 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: 0, max: 100 }, y: { min: 0, max: 100 } }, plugins: { legend: { display: false } } } });
-        function update() { const x = document.getElementById('x').value; const y = document.getElementById('y').value; document.getElementById('vX').innerText = x + '%'; document.getElementById('vY').innerText = y + '%'; chart.data.datasets[0].data[0] = {x, y}; chart.update(); }
-        function setKraljic(v) { document.getElementById('kraljicRes').innerText = v; }
-        function gerarRecomendacao() { const res = document.getElementById('aiResponse'); res.classList.remove('hidden'); res.innerHTML = "<b>Recomendação Prof. Thiago Lima:</b> Focar em parcerias estratégicas (Q2) e usar Target Pricing para alinhar custos."; }
-        document.getElementById('x').oninput = update; document.getElementById('y').oninput = update; update();
+        
+        let kraljicSel = "Não Definida";
+
+        function update() { 
+            const x = document.getElementById('x').value; 
+            const y = document.getElementById('y').value; 
+            document.getElementById('vX').innerText = x + '%'; 
+            document.getElementById('vY').innerText = y + '%'; 
+            chart.data.datasets[0].data[0] = {x, y}; 
+            chart.update(); 
+
+            let estrat = "";
+            if(y > 50) estrat = x > 50 ? "🤝 Vantagem Conjunta" : "💡 Mudar Natureza";
+            else estrat = x > 50 ? "⚔️ Alavancar Competição" : "⚙️ Gerir Gastos";
+            document.getElementById('resEstrategia').innerText = estrat;
+        }
+
+        function setKraljic(v) { 
+            kraljicSel = v;
+            const res = document.getElementById('resKraljicText');
+            const dicas = {
+                'Estratégico': 'Alto risco e alto lucro. Foco em parcerias de longo prazo e inovação conjunta.',
+                'Alavancagem': 'Baixo risco e alto lucro. Use seu poder de compra para maximizar economia via leilões.',
+                'Gargalo': 'Alto risco e baixo lucro. Garanta o suprimento através de contratos longos e redesenho.',
+                'Não Crítico': 'Baixo risco e baixo lucro. Foque em automação e redução de custos administrativos.'
+            };
+            res.innerText = dicas[v];
+            update();
+        }
+
+        function gerarRecomendacao() { const res = document.getElementById('aiResponse'); res.classList.remove('hidden'); res.innerHTML = "<b>Sugestão Prof. Thiago Lima:</b> Use os dados de Kraljic para justificar investimentos em parcerias."; }
+        
+        document.getElementById('x').oninput = update; 
+        document.getElementById('y').oninput = update; 
+        update();
     </script>
 </body>
 </html>
