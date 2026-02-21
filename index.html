@@ -3,166 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabuleiro de Xadrez de Compras e Negociação | Prof. Thiago Lima</title>
+    <title>64 Métodos de Compras e Negociação | Prof. Thiago Lima</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #fcfcfd; color: #1e293b; scroll-behavior: smooth; }
-        .chart-container { position: relative; width: 100%; max-width: 650px; height: 380px; margin: auto; }
-        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 22px; width: 22px; border-radius: 50%; background: #1e3a8a; cursor: pointer; margin-top: -8px; border: 2px solid #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; cursor: pointer; background: #e2e8f0; border-radius: 4px; }
-        .board-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
-        .board-card:hover { transform: translateY(-6px); box-shadow: 0 25px 30px -10px rgba(0,0,0,0.1); }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; scroll-behavior: smooth; }
+        .strategy-col { transition: all 0.3s ease; }
+        details summary::-webkit-details-marker { display: none; }
+        details[open] summary span { transform: rotate(45deg); }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     </style>
 </head>
-<body class="flex flex-col min-h-screen selection:bg-blue-100">
+<body>
 
-    <nav class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-18 py-4 text-sm font-bold uppercase tracking-widest">
-                <div class="flex items-center gap-2">
-                    <span class="text-2xl">♟️</span>
-                    <span class="text-blue-900">Kearney: Compras & Negociação</span>
-                </div>
-                <div class="hidden md:flex space-x-8 items-center text-slate-500">
-                    <a href="#simulador" class="hover:text-blue-900 transition">Simulador</a>
-                    <a href="#guia" class="hover:text-blue-900 transition">Guia Tático</a>
-                    <a href="#framework" class="hover:text-blue-900 transition">Alavancas</a>
-                </div>
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">♟️</span>
+                <span class="font-black text-slate-800 tracking-tighter uppercase">Purchasing Chessboard Interactive</span>
+            </div>
+            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest hidden md:block">
+                Prof. Thiago Lima | Estratégia e Negociação
             </div>
         </div>
     </nav>
 
-    <header class="bg-white border-b border-slate-50">
-        <div class="max-w-7xl mx-auto py-16 px-4 text-center">
-            <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 mb-6">
-                Estratégia de <span class="text-blue-800">Compras e Negociação</span>
-            </h1>
-            <p class="max-w-2xl mx-auto text-lg text-slate-500 mb-10">
-                Uma ferramenta interativa para diagnóstico de categorias e seleção de alavancas de valor baseada no framework da Kearney.
-            </p>
-            <div class="flex justify-center gap-4">
-                <a href="#simulador" class="px-8 py-3 bg-blue-900 text-white font-bold rounded-lg shadow-lg hover:bg-blue-800 transition">Iniciar Simulação</a>
-            </div>
-        </div>
+    <header class="bg-white py-12 border-b border-slate-100 text-center">
+        <h1 class="text-4xl font-extrabold text-slate-900 mb-2">O Tabuleiro de 64 Métodos</h1>
+        <p class="text-slate-500 max-w-2xl mx-auto px-4">Explore a taxonomia completa para otimização de suprimentos e táticas de negociação estratégica.</p>
     </header>
 
-    <section id="simulador" class="py-20 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-12 gap-12 items-start">
-            <div class="lg:col-span-5 bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
-                <h2 class="text-2xl font-bold mb-6">Simulador de Poder</h2>
-                <div class="space-y-10">
-                    <div>
-                        <div class="flex justify-between mb-4">
-                            <label class="text-xs font-bold uppercase text-slate-500">Poder de Compra</label>
-                            <span id="valCompra" class="text-xl font-black text-blue-900">50%</span>
-                        </div>
-                        <input type="range" id="slideCompra" min="0" max="100" value="50">
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-4">
-                            <label class="text-xs font-bold uppercase text-slate-500">Poder do Fornecedor</label>
-                            <span id="valFornecedor" class="text-xl font-black text-blue-900">50%</span>
-                        </div>
-                        <input type="range" id="slideFornecedor" min="0" max="100" value="50">
-                    </div>
+    <main class="max-w-7xl mx-auto px-4 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <div class="strategy-col space-y-4">
+                <div class="p-4 bg-red-600 text-white rounded-xl shadow-lg mb-6 text-center">
+                    <span class="text-[10px] block font-bold opacity-80 uppercase">Poder do Fornecedor Alto</span>
+                    <h2 class="font-bold uppercase tracking-tight">Mudar Natureza</h2>
                 </div>
-                <div id="resultadoBox" class="mt-12 p-6 rounded-2xl border-2 bg-slate-50 border-slate-200 transition-all">
-                    <h3 id="resTitulo" class="text-xl font-bold text-slate-900">Ajuste os Sliders</h3>
-                    <p id="resDesc" class="text-sm text-slate-600 mt-2 italic">A posição no gráfico define sua postura tática.</p>
-                </div>
+                
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-red-50 transition">
+                        Inovação Disruptiva <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• Criar novos produtos</p><p>• Substituir materiais</p><p>• Redesenhar para eficiência</p><p>• Inovação de fornecedor</p>
+                    </div>
+                </details>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-red-50 transition">
+                        Re-especificação <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• Simplificar funções</p><p>• Padronizar especificações</p><p>• Relaxar restrições</p><p>• Padronização global</p>
+                    </div>
+                </details>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-red-50 transition">
+                        Integração Vertical <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• Make-or-buy (Fazer)</p><p>• Joint Venture</p><p>• Adquirir fornecedor</p><p>• Integração virtual</p>
+                    </div>
+                </details>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-red-50 transition">
+                        Gestão de Risco <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• Hedge de preços</p><p>• Dual Sourcing</p><p>• Buffer de estoque</p><p>• Contratos Long-term</p>
+                    </div>
+                </details>
             </div>
-            <div class="lg:col-span-7 bg-white p-6 rounded-3xl shadow-xl border border-slate-100">
-                <div class="chart-container"><canvas id="matrizChart"></canvas></div>
-            </div>
-        </div>
-    </section>
 
-    <section id="guia" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="space-y-6">
-                    <h2 class="text-3xl font-extrabold text-slate-900 mb-8">Guia Tático de Negociação</h2>
-                    <div class="p-6 bg-blue-50 rounded-2xl border-l-4 border-blue-600">
-                        <h4 class="font-bold text-blue-900">Poder do Comprador Dominante</h4>
-                        <p class="text-sm text-blue-800 mt-2">Foco em táticas competitivas: leilões reversos, consolidação de volumes globais e padronização para aumentar a concorrência entre fornecedores.</p>
-                    </div>
-                    <div class="p-6 bg-red-50 rounded-2xl border-l-4 border-red-600">
-                        <h4 class="font-bold text-red-900">Poder do Fornecedor Dominante</h4>
-                        <p class="text-sm text-red-800 mt-2">Foco em táticas técnicas: redesenho de especificações (Technical Redesign), busca de materiais alternativos e gestão rigorosa da demanda interna.</p>
-                    </div>
+            <div class="strategy-col space-y-4">
+                <div class="p-4 bg-purple-600 text-white rounded-xl shadow-lg mb-6 text-center">
+                    <span class="text-[10px] block font-bold opacity-80 uppercase">Equilíbrio de Poder</span>
+                    <h2 class="font-bold uppercase tracking-tight">Vantagem Conjunta</h2>
                 </div>
-                <div class="bg-slate-900 p-8 rounded-3xl text-white">
-                    <h3 class="text-xl font-bold mb-6 text-amber-400">📖 Glossário de Alavancas</h3>
-                    <div class="space-y-6 h-[320px] overflow-y-auto pr-4 custom-scrollbar">
-                        <div>
-                            <h4 class="text-amber-400 text-xs font-bold uppercase">Target Pricing</h4>
-                            <p class="text-slate-300 text-sm mt-1">Definição do preço ideal via decomposição de custos (Should-Cost), ignorando tabelas fixas.</p>
-                        </div>
-                        <hr class="border-white/10">
-                        <div>
-                            <h4 class="text-amber-400 text-xs font-bold uppercase">Value Engineering</h4>
-                            <p class="text-slate-300 text-sm mt-1">Eliminação de funções que geram custos mas não agregam valor percebido ao cliente final.</p>
-                        </div>
-                        <hr class="border-white/10">
-                        <div>
-                            <h4 class="text-amber-400 text-xs font-bold uppercase">Global Sourcing</h4>
-                            <p class="text-slate-300 text-sm mt-1">Exploração de fornecedores em países de baixo custo para quebrar monopólios locais.</p>
-                        </div>
-                        <hr class="border-white/10">
-                        <div>
-                            <h4 class="text-amber-400 text-xs font-bold uppercase">Bundling de Categoria</h4>
-                            <p class="text-slate-300 text-sm mt-1">Agrupamento de gastos de diferentes unidades de negócio para aumentar o volume negociado.</p>
-                        </div>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-purple-50 transition">
+                        Gestão da Cadeia de Valor <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• Eliminar desperdício</p><p>• Otimizar logística</p><p>• Produção sincronizada</p><p>• P&D Conjunto</p>
                     </div>
-                </div>
+                </details>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-purple-50 transition">
+                        Operações Integradas <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• VMI (Estoque Gerido)</p><p>• Just-in-Time</p><p>• Integração eletrônica</p><p>• Planejamento partilhado</p>
+                    </div>
+                </details>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-purple-50 transition">
+                        Parceria de Custos <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• Open Book Costing</p><p>• Modelação de custos</p><p>• TCO (Custo Total)</p><p>• Should-Cost Analysis</p>
+                    </div>
+                </details>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-purple-50 transition">
+                        Partilha de Lucros <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• Contratos de incentivo</p><p>• Gain Sharing</p><p>• Target Costing</p><p>• Investimento conjunto</p>
+                    </div>
+                </details>
             </div>
-        </div>
-    </section>
 
-    <footer class="bg-slate-50 py-12 border-t border-slate-200 text-center">
-        <p class="text-slate-600 font-bold">Desenvolvido por Prof. Thiago Lima</p>
-        <p class="text-slate-400 text-xs mt-2 uppercase tracking-tighter italic">Especialista em Logística, Operações e Negociação Estratégica</p>
+            <div class="strategy-col space-y-4">
+                <div class="p-4 bg-slate-600 text-white rounded-xl shadow-lg mb-6 text-center">
+                    <span class="text-[10px] block font-bold opacity-80 uppercase">Poder Baixo (Ambos)</span>
+                    <h2 class="font-bold uppercase tracking-tight">Gerir Gastos</h2>
+                </div>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-slate-50 transition">
+                        Gestão da Demanda <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• Visibilidade de gastos</p><p>• Compliance de política</p><p>• Reduzir consumo</p><p>• Eliminar Maverick Spend</p>
+                    </div>
+                </details>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-slate-50 transition">
+                        Co-Sourcing <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• Consórcios de compra</p><p>• Grupos de compra (GPO)</p><p>• Piggy-backing</p><p>• Serviços partilhados</p>
+                    </div>
+                </details>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-slate-50 transition">
+                        Mineração de Dados <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• Benchmark de preços</p><p>• Racionalização base</p><p>• Cubo de gastos</p><p>• Auditoria de faturas</p>
+                    </div>
+                </details>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-slate-50 transition">
+                        Agregação de Volume <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• Bundling entre unidades</p><p>• Bundling entre categorias</p><p>• Acordos plurianuais</p><p>• Redução de SKU</p>
+                    </div>
+                </details>
+            </div>
+
+            <div class="strategy-col space-y-4">
+                <div class="p-4 bg-blue-600 text-white rounded-xl shadow-lg mb-6 text-center">
+                    <span class="text-[10px] block font-bold opacity-80 uppercase">Poder do Comprador Alto</span>
+                    <h2 class="font-bold uppercase tracking-tight">Alavancar Competição</h2>
+                </div>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-blue-50 transition">
+                        Globalização <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• LCC Sourcing (Baixo Custo)</p><p>• Gabinete Global</p><p>• Mercados Emergentes</p><p>• Offsets comerciais</p>
+                    </div>
+                </details>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-blue-50 transition">
+                        Concursos (Tendering) <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• RFX Digital</p><p>• Licitação expressiva</p><p>• Bidding por performance</p><p>• Seleção multicritério</p>
+                    </div>
+                </details>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-blue-50 transition">
+                        Target Pricing <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• Preços lineares</p><p>• Análise de regressão</p><p>• Clean-sheet costing</p><p>• Benchmark competitivo</p>
+                    </div>
+                </details>
+                <details class="bg-white border border-slate-200 rounded-lg group">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-blue-50 transition">
+                        Leilões Reversos <span class="transition-transform duration-200">+</span>
+                    </summary>
+                    <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
+                        <p>• Leilão Inglês</p><p>• Leilão Holandês</p><p>• Leilão Japonês</p><p>• Leilão Selado</p>
+                    </div>
+                </details>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-12 mt-10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="font-bold text-slate-800">Prof. Thiago Lima</p>
+            <p class="text-xs text-slate-400 mt-2 uppercase tracking-widest">MBA | Escola de Negócios | Consultoria Estratégica</p>
+            <div class="mt-6 text-[10px] text-slate-300">Framework baseado no The Purchasing Chessboard® da Kearney</div>
+        </div>
     </footer>
 
-    <script>
-        const ctx = document.getElementById('matrizChart').getContext('2d');
-        const matrizChart = new Chart(ctx, {
-            type: 'scatter',
-            data: { datasets: [{ label: 'Posição', data: [{x: 50, y: 50}], backgroundColor: '#1e3a8a', pointRadius: 12 }] },
-            options: {
-                responsive: true, maintainAspectRatio: false,
-                scales: { x: { min: 0, max: 100, title: { display: true, text: 'Poder de Compra' } }, y: { min: 0, max: 100, title: { display: true, text: 'Poder do Fornecedor' } } },
-                plugins: { legend: { display: false } }
-            }
-        });
-
-        function update() {
-            const x = document.getElementById('slideCompra').value;
-            const y = document.getElementById('slideFornecedor').value;
-            document.getElementById('valCompra').innerText = x + '%';
-            document.getElementById('valFornecedor').innerText = y + '%';
-            matrizChart.data.datasets[0].data[0] = {x, y};
-            matrizChart.update();
-
-            const resT = document.getElementById('resTitulo');
-            const resD = document.getElementById('resDesc');
-            if(y > 50 && x > 50) { resT.innerText = "Vantagem Conjunta"; resD.innerText = "Parcerias estratégicas e inovação conjunta."; }
-            else if(y > 50) { resT.innerText = "Mudar Natureza"; resD.innerText = "Redesenho técnico para reduzir dependência."; }
-            else if(x > 50) { resT.innerText = "Alavancar Competição"; resD.innerText = "Uso de leilões e pressão sobre margens."; }
-            else { resT.innerText = "Gerir Gastos"; resD.innerText = "Eficiência administrativa e automação."; }
-        }
-
-        document.getElementById('slideCompra').oninput = update;
-        document.getElementById('slideFornecedor').oninput = update;
-        update();
-    </script>
 </body>
 </html>
