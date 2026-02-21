@@ -11,38 +11,37 @@
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
         .no-print { display: block; }
         @media print {
-            .no-print, .ia-box, button { display: none !important; }
-            .print-only { display: block !important; }
+            .no-print, .ia-box, button, nav { display: none !important; }
             body { background: white; padding: 0; }
             details:not([open]) { display: none !important; } 
             .strategy-col { width: 100% !important; border: 1px solid #eee; padding: 20px; margin-bottom: 30px; page-break-inside: avoid; }
             header { border-bottom: 2px solid #000; padding-bottom: 20px; margin-bottom: 30px; }
-            textarea, input { border: none !important; padding: 0 !important; outline: none !important; resize: none; }
-            .section-card { border: 1px solid #eee; margin-bottom: 20px; page-break-inside: avoid; }
+            textarea, input { border: none !important; padding: 0 !important; outline: none !important; resize: none; background: transparent !important; }
+            .section-card { border: 1px solid #eee; margin-bottom: 20px; page-break-inside: avoid; padding: 20px !important; }
         }
         .chart-container { position: relative; height: 300px; width: 100%; }
-        .tab-btn.active { border-bottom: 3px solid #1e3a8a; color: #1e3a8a; }
+        details summary::-webkit-details-marker { display: none; }
     </style>
 </head>
-<body class="p-0 m-0">
+<body>
 
     <nav class="bg-slate-900 text-white py-4 px-6 flex justify-between items-center no-print">
         <span class="font-black text-sm uppercase tracking-tighter italic text-blue-400">Strategic Negotiation Assistant</span>
-        <span class="text-[10px] font-bold opacity-70 uppercase tracking-widest">Prof. Thiago Lima | MBA & Negociação</span>
+        <span class="text-[10px] font-bold opacity-70 uppercase tracking-widest">Prof. Thiago Lima</span>
     </nav>
 
     <header class="bg-white py-12 px-6 border-b border-slate-100 text-center">
         <h1 class="text-3xl font-black text-slate-900 mb-2 uppercase tracking-tighter">Plano de Ação: Negociação Estratégica</h1>
-        <p class="text-slate-500 text-xs font-medium">Relatório Técnico Gerencial - Definido para Categorias e Métodos Táticos</p>
+        <p class="text-slate-500 text-xs font-medium italic">Documento Técnico Gerencial - Desenvolvido por Prof. Thiago Lima</p>
     </header>
 
     <main class="max-w-7xl mx-auto px-6 py-12">
 
-        <div class="grid lg:grid-cols-2 gap-12 mb-16 no-print">
+        <section class="grid lg:grid-cols-2 gap-12 mb-16 no-print">
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 section-card">
-                <h3 class="text-lg font-bold mb-6">1. Contextualização</h3>
+                <h3 class="text-lg font-bold mb-6 italic">1. Contextualização da Categoria</h3>
                 <div class="space-y-4">
-                    <input type="text" id="catNome" placeholder="Nome da Categoria (ex: Logística)" class="w-full border-b p-2 outline-none focus:border-blue-500 font-bold">
+                    <input type="text" id="catNome" placeholder="Nome da Categoria (Ex: Logística Zona Sul)" class="w-full border-b p-2 outline-none focus:border-blue-500 font-bold">
                     <input type="text" id="catSpend" placeholder="Spend Anual Médio..." class="w-full border-b p-2 outline-none focus:border-blue-500">
                     <div class="grid grid-cols-2 gap-2 pt-4">
                         <button onclick="setKraljic('Estratégico')" class="p-2 border rounded-lg text-[10px] font-bold hover:bg-slate-50 border-slate-200">ESTRATÉGICO</button>
@@ -50,134 +49,117 @@
                         <button onclick="setKraljic('Gargalo')" class="p-2 border rounded-lg text-[10px] font-bold hover:bg-slate-50 border-slate-200">GARGALO</button>
                         <button onclick="setKraljic('Não Crítico')" class="p-2 border rounded-lg text-[10px] font-bold hover:bg-slate-50 border-slate-200">NÃO CRÍTICO</button>
                     </div>
-                    <div class="mt-2 p-3 bg-blue-50 rounded-lg text-xs text-blue-800"><b>Kraljic Selecionado:</b> <span id="kraljicRes">Não Definido</span></div>
+                    <div class="mt-2 p-3 bg-blue-50 rounded-lg text-xs text-blue-800"><b>Classificação Kraljic:</b> <span id="kraljicRes">Pendente</span></div>
                 </div>
             </div>
 
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 section-card">
-                <h3 class="text-lg font-bold mb-6">2. Balanço de Poder</h3>
+                <h3 class="text-lg font-bold mb-6 italic">2. Análise de Poder (Kearney)</h3>
                 <div class="space-y-4">
-                    <div class="flex justify-between text-[10px] font-bold uppercase"><span>Comprador</span> <span id="vX">50%</span></div>
+                    <div class="flex justify-between text-[10px] font-bold uppercase"><span>Poder do Comprador</span> <span id="vX" class="text-blue-600">50%</span></div>
                     <input type="range" id="x" min="0" max="100" value="50" class="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600">
-                    <div class="flex justify-between text-[10px] font-bold uppercase"><span>Fornecedor</span> <span id="vY">50%</span></div>
+                    <div class="flex justify-between text-[10px] font-bold uppercase"><span>Poder do Fornecedor</span> <span id="vY" class="text-red-600">50%</span></div>
                     <input type="range" id="y" min="0" max="100" value="50" class="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-red-600">
                 </div>
                 <div class="chart-container mt-4"><canvas id="mainChart"></canvas></div>
             </div>
-        </div>
-
-        <section class="bg-white p-10 rounded-[2.5rem] border border-slate-200 mb-16 shadow-sm section-card">
-            <h2 class="text-2xl font-black text-slate-900 mb-8 border-b pb-4">3. Planejamento de Negociação</h2>
-            
-            <div class="grid md:grid-cols-2 gap-10">
-                <div class="space-y-4">
-                    <div class="flex items-center gap-2">
-                        <span class="p-2 bg-blue-100 text-blue-700 rounded-lg text-xs font-bold">BATNA</span>
-                        <h4 class="text-sm font-bold uppercase tracking-wider">Melhor Alternativa ao Acordo</h4>
-                    </div>
-                    <p class="text-[10px] text-slate-500 italic leading-relaxed">O que você fará se a negociação falhar? Ter uma BATNA forte aumenta seu poder de barganha.</p>
-                    <textarea id="batnaInput" rows="3" class="w-full bg-slate-50 border rounded-xl p-4 text-sm focus:outline-blue-500" placeholder="Ex: Fornecedor B já homologado com preço 5% superior..."></textarea>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="flex items-center gap-2">
-                        <span class="p-2 bg-red-100 text-red-700 rounded-lg text-xs font-bold">RESERVA</span>
-                        <h4 class="text-sm font-bold uppercase tracking-wider">Ponto de Abandono</h4>
-                    </div>
-                    <p class="text-[10px] text-slate-500 italic leading-relaxed">O valor máximo (ou mínimo) que você aceita. Abaixo/acima disso, é melhor levantar da mesa.</p>
-                    <textarea id="reservaInput" rows="3" class="w-full bg-slate-50 border rounded-xl p-4 text-sm focus:outline-red-500" placeholder="Ex: Custo total não pode exceder R$ 150/unidade..."></textarea>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="flex items-center gap-2">
-                        <span class="p-2 bg-green-100 text-green-700 rounded-lg text-xs font-bold">ZOPA</span>
-                        <h4 class="text-sm font-bold uppercase tracking-wider">Zona de Possível Acordo</h4>
-                    </div>
-                    <p class="text-[10px] text-slate-500 italic leading-relaxed">O intervalo entre o seu valor de reserva e o valor de reserva do fornecedor.</p>
-                    <textarea id="zopaInput" rows="3" class="w-full bg-slate-50 border rounded-xl p-4 text-sm focus:outline-green-500" placeholder="Ex: Faixa estimada entre R$ 135 e R$ 148..."></textarea>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="flex items-center gap-2">
-                        <span class="p-2 bg-amber-100 text-amber-700 rounded-lg text-xs font-bold">CONCESSÕES</span>
-                        <h4 class="text-sm font-bold uppercase tracking-wider">Moedas de Troca</h4>
-                    </div>
-                    <p class="text-[10px] text-slate-500 italic leading-relaxed">Quais itens você pode ceder e o que pedirá em troca (Ex: Prazo de pagamento vs Preço).</p>
-                    <textarea id="concessoesInput" rows="3" class="w-full bg-slate-50 border rounded-xl p-4 text-sm focus:outline-amber-500" placeholder="Ex: Aceitamos reduzir o Lote Mínimo em troca de antecipação..."></textarea>
-                </div>
-            </div>
         </section>
 
-        <section class="mb-16 no-print ia-box">
-            <div class="bg-gradient-to-br from-blue-900 to-slate-900 p-8 rounded-[2.5rem] text-white shadow-2xl">
-                <div class="flex items-center gap-3 mb-6">
-                    <span class="text-2xl">✨</span>
-                    <h3 class="text-xl font-bold">Assistente Consultivo Prof. Thiago Lima</h3>
+        <section class="bg-white p-10 rounded-[2.5rem] border border-slate-200 mb-16 shadow-sm section-card">
+            <h2 class="text-2xl font-black text-slate-900 mb-8 border-b pb-4 uppercase tracking-tighter">3. Planejamento de Negociação</h2>
+            
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase text-blue-700">BATNA (Melhor Alternativa)</h4>
+                    <textarea id="batnaInput" rows="3" class="w-full bg-slate-50 border rounded-xl p-4 text-sm" placeholder="O que faremos se não houver acordo?"></textarea>
                 </div>
-                <p class="text-blue-200 text-sm mb-6">Descreva o cenário da sua categoria abaixo para receber uma recomendação tática:</p>
-                <textarea id="aiInput" rows="3" class="w-full bg-white/10 border border-white/20 rounded-2xl p-4 text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Ex: Categoria de logística com poucos fornecedores locais e custo subindo..."></textarea>
-                <button onclick="gerarRecomendacao()" class="mt-4 bg-blue-500 hover:bg-blue-400 px-6 py-3 rounded-xl font-bold transition text-xs uppercase tracking-wider">Solicitar Análise</button>
-                <div id="aiResponse" class="mt-6 p-4 bg-white/5 rounded-xl text-xs leading-relaxed hidden border border-white/10 italic"></div>
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase text-red-700">Valor de Reserva</h4>
+                    <textarea id="reservaInput" rows="3" class="w-full bg-slate-50 border rounded-xl p-4 text-sm" placeholder="Qual o limite máximo aceitável?"></textarea>
+                </div>
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase text-green-700">ZOPA (Zona de Acordo)</h4>
+                    <textarea id="zopaInput" rows="3" class="w-full bg-slate-50 border rounded-xl p-4 text-sm" placeholder="Faixa estimada de negociação..."></textarea>
+                </div>
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase text-amber-700">Concessões e Trocas</h4>
+                    <textarea id="concessoesInput" rows="3" class="w-full bg-slate-50 border rounded-xl p-4 text-sm" placeholder="O que podemos ceder? O que pediremos em troca?"></textarea>
+                </div>
             </div>
         </section>
 
         <div class="mb-8 no-print">
-            <h3 class="text-2xl font-black">4. Seleção de Alavancas (O que estiver aberto vai para o PDF)</h3>
-            <p class="text-slate-500 text-sm">Escolha as alavancas do Tabuleiro de 64 Métodos abrindo os itens abaixo.</p>
+            <h3 class="text-2xl font-black uppercase tracking-tighter">4. Seleção de Métodos Táticos</h3>
+            <p class="text-slate-500 text-sm italic">Abra as alavancas relevantes. Apenas os itens abertos constarão no PDF final.</p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-            <div class="strategy-col space-y-4">
-                <div class="p-4 bg-red-600 text-white rounded-xl font-bold text-xs uppercase text-center">Mudar Natureza</div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            <div class="strategy-col space-y-3">
+                <div class="p-3 bg-red-600 text-white rounded-xl font-bold text-[10px] uppercase text-center shadow-lg">Mudar Natureza</div>
                 <details class="bg-white border rounded-xl overflow-hidden shadow-sm">
-                    <summary class="p-4 text-[10px] font-black uppercase cursor-pointer flex justify-between hover:bg-red-50">Inovação Disruptiva <span>+</span></summary>
-                    <div class="p-4 text-[11px] space-y-2 border-t bg-slate-50">
+                    <summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-red-50">Inovação Disruptiva <span>+</span></summary>
+                    <div class="p-4 text-[11px] space-y-2 border-t bg-slate-50 text-slate-600 italic">
                         <p>• Criar Novos Produtos</p><p>• Substituir Materiais</p><p>• Redesenhar para Eficiência</p><p>• Inovação de Fornecedor</p>
                     </div>
                 </details>
                 <details class="bg-white border rounded-xl overflow-hidden shadow-sm">
-                    <summary class="p-4 text-[10px] font-black uppercase cursor-pointer flex justify-between hover:bg-red-50">Re-especificação <span>+</span></summary>
-                    <div class="p-4 text-[11px] space-y-2 border-t bg-slate-50">
+                    <summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-red-50">Re-especificação <span>+</span></summary>
+                    <div class="p-4 text-[11px] space-y-2 border-t bg-slate-50 text-slate-600 italic">
                         <p>• Simplificar funções</p><p>• Padronizar especificações</p><p>• Relaxar restrições</p>
                     </div>
                 </details>
             </div>
-            
-            <div class="strategy-col space-y-4">
-                <div class="p-4 bg-blue-600 text-white rounded-xl font-bold text-xs uppercase text-center">Alavancar Competição</div>
+
+            <div class="strategy-col space-y-3">
+                <div class="p-3 bg-purple-600 text-white rounded-xl font-bold text-[10px] uppercase text-center shadow-lg">Vantagem Conjunta</div>
                 <details class="bg-white border rounded-xl overflow-hidden shadow-sm">
-                    <summary class="p-4 text-[10px] font-black uppercase cursor-pointer flex justify-between hover:bg-blue-50">Target Pricing <span>+</span></summary>
-                    <div class="p-4 text-[11px] space-y-2 border-t bg-slate-50">
-                        <p>• Preços Lineares</p><p>• Análise de Regressão</p><p>• Clean-sheet Costing</p><p>• Benchmark Competitivo</p>
+                    <summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-purple-50">Parceria de Custos <span>+</span></summary>
+                    <div class="p-4 text-[11px] space-y-2 border-t bg-slate-50 text-slate-600 italic">
+                        <p>• Open Book Costing</p><p>• Modelação de Custos</p><p>• TCO Analysis</p><p>• Should-Cost Analysis</p>
+                    </div>
+                </details>
+            </div>
+
+            <div class="strategy-col space-y-3">
+                <div class="p-3 bg-slate-600 text-white rounded-xl font-bold text-[10px] uppercase text-center shadow-lg">Gerir Gastos</div>
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm">
+                    <summary class="p-4 text-[10px] font-black uppercase cursor-pointer flex justify-between hover:bg-slate-50">Agregação de Volume <span>+</span></summary>
+                    <div class="p-4 text-[11px] space-y-2 border-t bg-slate-50 text-slate-600 italic">
+                        <p>• Bundling de Unidades</p><p>• Contratos Plurianuais</p><p>• Redução de SKU</p>
+                    </div>
+                </details>
+            </div>
+
+            <div class="strategy-col space-y-3">
+                <div class="p-3 bg-blue-600 text-white rounded-xl font-bold text-[10px] uppercase text-center shadow-lg">Alavancar Competição</div>
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm">
+                    <summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-blue-50">Target Pricing <span>+</span></summary>
+                    <div class="p-4 text-[11px] space-y-2 border-t bg-slate-50 text-slate-600 italic">
+                        <p>• Preços Lineares</p><p>• Análise de Regressão</p><p>• Clean-sheet Costing</p>
                     </div>
                 </details>
                 <details class="bg-white border rounded-xl overflow-hidden shadow-sm">
-                    <summary class="p-4 text-[10px] font-black uppercase cursor-pointer flex justify-between hover:bg-blue-50">Leilões Reversos <span>+</span></summary>
-                    <div class="p-4 text-[11px] space-y-2 border-t bg-slate-50">
+                    <summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-blue-50">Leilões Reversos <span>+</span></summary>
+                    <div class="p-4 text-[11px] space-y-2 border-t bg-slate-50 text-slate-600 italic">
                         <p>• Leilão Inglês</p><p>• Leilão Holandês</p><p>• Leilão Japonês</p>
                     </div>
                 </details>
             </div>
         </div>
 
-        <div class="text-center no-print">
-            <button onclick="window.print()" class="bg-slate-900 text-white px-16 py-6 rounded-2xl font-black text-sm shadow-2xl hover:bg-black transition transform hover:scale-105 uppercase tracking-widest">
-                Gerar Relatório Final (PDF)
+        <div class="text-center no-print pb-20">
+            <button onclick="window.print()" class="bg-slate-900 text-white px-16 py-6 rounded-2xl font-black text-xs shadow-2xl hover:bg-black transition transform hover:scale-105 uppercase tracking-widest">
+                Gerar Relatório Estratégico (PDF)
             </button>
         </div>
 
     </main>
 
-    <footer class="bg-white py-12 border-t border-slate-100 text-center no-print">
-        <p class="font-bold text-slate-800">Prof. Thiago Lima</p>
-        <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-2">Doutor e Pesquisador | MBA & Negociação Estratégica</p>
-    </footer>
-
     <script>
         const ctx = document.getElementById('mainChart').getContext('2d');
         const chart = new Chart(ctx, {
             type: 'scatter',
-            data: { datasets: [{ label: 'Posição', data: [{x: 50, y: 50}], backgroundColor: '#1e3a8a', pointRadius: 10 }] },
+            data: { datasets: [{ data: [{x: 50, y: 50}], backgroundColor: '#1e3a8a', pointRadius: 10 }] },
             options: {
                 responsive: true, maintainAspectRatio: false,
                 scales: { 
@@ -197,16 +179,7 @@
             chart.update();
         }
 
-        function setKraljic(val) {
-            document.getElementById('kraljicRes').innerText = val;
-        }
-
-        function gerarRecomendacao() {
-            const input = document.getElementById('aiInput').value;
-            const res = document.getElementById('aiResponse');
-            res.classList.remove('hidden');
-            res.innerHTML = "<b>Análise Estratégica:</b> Considerando o cenário de '" + input + "', o foco deve ser no desenvolvimento da BATNA para reduzir a dependência. No Tabuleiro, priorize 'Re-especificação' para quebrar o monopólio técnico.";
-        }
+        function setKraljic(val) { document.getElementById('kraljicRes').innerText = val; }
 
         document.getElementById('x').oninput = update;
         document.getElementById('y').oninput = update;
