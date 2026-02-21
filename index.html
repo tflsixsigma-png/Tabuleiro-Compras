@@ -20,13 +20,13 @@
         }
         .chart-container { position: relative; height: 320px; width: 100%; }
         details summary::-webkit-details-marker { display: none; }
-        .method-item { border-left: 2px solid #e2e8f0; padding-left: 8px; margin-bottom: 8px; font-size: 10px; }
+        .method-item { border-left: 2px solid #e2e8f0; padding-left: 8px; margin-bottom: 12px; font-size: 10px; }
     </style>
 </head>
 <body>
 
     <nav class="bg-slate-900 text-white py-4 px-6 flex justify-between items-center no-print">
-        <span class="font-black text-sm uppercase tracking-tighter italic text-blue-400">Strategic Procurement Assistant</span>
+        <span class="font-black text-sm uppercase tracking-tighter italic text-blue-400">Strategic Procurement Tool</span>
         <span class="text-[10px] font-bold opacity-70 uppercase tracking-widest">Prof. Thiago Lima</span>
     </nav>
 
@@ -39,21 +39,21 @@
 
         <section class="grid lg:grid-cols-2 gap-12 mb-16 no-print">
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 section-card">
-                <h3 class="text-lg font-bold mb-6 italic text-blue-900">1. Parâmetros da Categoria (Kraljic)</h3>
+                <h3 class="text-lg font-bold mb-6 italic text-blue-900">1. Diagnóstico Matriz Kraljic</h3>
                 <div class="space-y-6">
                     <input type="text" id="catNome" placeholder="Nome da Categoria..." class="w-full border-b p-2 outline-none focus:border-blue-500 font-bold mb-6">
                     <div>
-                        <label class="flex justify-between text-[10px] font-bold uppercase mb-2">Impacto no Lucro/Resultado <span id="vImpacto" class="text-blue-600">Baixo</span></label>
+                        <label class="flex justify-between text-[10px] font-bold uppercase mb-2">Impacto no Lucro <span id="vImpacto">Baixo</span></label>
                         <input type="range" id="kImpacto" min="0" max="100" value="25" class="w-full accent-blue-900">
                     </div>
                     <div>
-                        <label class="flex justify-between text-[10px] font-bold uppercase mb-2">Risco de Suprimento/Mercado <span id="vRisco" class="text-red-600">Baixo</span></label>
+                        <label class="flex justify-between text-[10px] font-bold uppercase mb-2">Risco de Suprimento <span id="vRisco">Baixo</span></label>
                         <input type="range" id="kRisco" min="0" max="100" value="25" class="w-full accent-red-900">
                     </div>
-                    <div class="p-4 bg-slate-900 text-white rounded-2xl border-l-4 border-blue-500">
-                        <p class="text-[9px] font-black text-slate-400 uppercase">Classificação Kraljic:</p>
+                    <div class="p-4 bg-slate-900 text-white rounded-2xl border-l-4 border-blue-500 shadow-lg">
+                        <p class="text-[9px] font-black text-slate-400 uppercase">Classificação Detectada:</p>
                         <h4 id="kraljicResult" class="text-lg font-black uppercase tracking-tighter italic">Não Crítico</h4>
-                        <p id="kraljicDica" class="text-[10px] text-slate-400 mt-1 italic">Foco: Eficiência administrativa.</p>
+                        <p id="kraljicDica" class="text-[10px] text-slate-400 mt-1">Foco: Eficiência administrativa e automação.</p>
                     </div>
                 </div>
             </div>
@@ -79,131 +79,174 @@
                 <div class="flex items-center gap-4 mb-6">
                     <span class="text-3xl">🎓</span>
                     <div>
-                        <h3 class="text-xl font-bold uppercase tracking-tighter">Assistente de Diagnóstico</h3>
-                        <p class="text-blue-400 text-[10px] font-bold uppercase">Baseado nos Frameworks Kraljic & Kearney</p>
+                        <h3 class="text-xl font-bold uppercase tracking-tighter">Diagnóstico de Estratégia</h3>
+                        <p class="text-blue-400 text-[10px] font-bold uppercase italic">Integração Cruzada Kraljic & Kearney</p>
                     </div>
                 </div>
-                <input type="text" id="catSpend" placeholder="Informe o Spend Anual (Opcional)..." class="w-full bg-white/5 border border-white/20 rounded-xl p-3 text-sm mb-4 outline-none focus:border-blue-500 transition">
-                <button onclick="gerarParecerTecnico()" class="bg-blue-600 hover:bg-blue-500 px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition shadow-lg">Gerar Recomendação Técnica</button>
-                
-                <div id="aiResponse" class="mt-8 p-6 bg-white/5 rounded-2xl text-sm hidden border border-white/10 leading-relaxed italic text-slate-300">
-                    </div>
+                <input type="text" id="catSpend" placeholder="Informe o Spend Anual Médio..." class="w-full bg-white/5 border border-white/20 rounded-xl p-3 text-sm mb-4 outline-none">
+                <button onclick="gerarParecerTecnico()" class="bg-blue-600 hover:bg-blue-500 px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest">Gerar Recomendação Tática</button>
+                <div id="aiResponse" class="mt-8 p-6 bg-white/5 rounded-2xl text-sm hidden border border-white/10 leading-relaxed italic text-slate-300"></div>
             </div>
         </section>
 
         <section class="bg-white p-10 rounded-[2.5rem] border border-slate-200 mb-16 shadow-sm section-card">
-            <h2 class="text-2xl font-black text-slate-900 mb-8 border-b pb-4 uppercase italic">3. Preparação para a Mesa de Negociação</h2>
+            <h2 class="text-2xl font-black text-slate-900 mb-8 border-b pb-4 uppercase italic">3. Preparação Tática de Negociação</h2>
             <div class="grid md:grid-cols-2 gap-10">
                 <div class="space-y-2">
-                    <h4 class="text-xs font-bold text-blue-700 uppercase">BATNA (Opção B)</h4>
-                    <p class="text-[9px] text-slate-400 italic">O que você fará se a negociação falhar? Sua alternativa fora da mesa.</p>
+                    <h4 class="text-xs font-bold uppercase text-blue-700">BATNA (Melhor Alternativa)</h4>
+                    <p class="text-[9px] text-slate-400 italic">O que você fará se a negociação falhar? (Opção de saída).</p>
                     <textarea id="batna" class="w-full bg-slate-50 border rounded-xl p-4 text-sm min-h-[100px]"></textarea>
                 </div>
                 <div class="space-y-2">
-                    <h4 class="text-xs font-bold text-red-700 uppercase">Valor de Reserva</h4>
-                    <p class="text-[9px] text-slate-400 italic">Ponto de Abandono: O valor limite para não fechar o negócio.</p>
+                    <h4 class="text-xs font-bold uppercase text-red-700">Valor de Reserva (Abandono)</h4>
+                    <p class="text-[9px] text-slate-400 italic">O preço máximo ou condição limite para fechar o negócio.</p>
                     <textarea id="reserva" class="w-full bg-slate-50 border rounded-xl p-4 text-sm min-h-[100px]"></textarea>
                 </div>
                 <div class="space-y-2">
-                    <h4 class="text-xs font-bold text-green-700 uppercase">ZOPA</h4>
-                    <p class="text-[9px] text-slate-400 italic">Zona de Acordo: O intervalo onde os interesses de ambos se cruzam.</p>
+                    <h4 class="text-xs font-bold uppercase text-green-700">ZOPA (Zona de Acordo)</h4>
+                    <p class="text-[9px] text-slate-400 italic">O intervalo provável onde comprador e vendedor aceitam o pacto.</p>
                     <textarea id="zopa" class="w-full bg-slate-50 border rounded-xl p-4 text-sm min-h-[100px]"></textarea>
                 </div>
                 <div class="space-y-2">
-                    <h4 class="text-xs font-bold text-amber-700 uppercase">Concessões</h4>
-                    <p class="text-[9px] text-slate-400 italic">Moedas de Troca: Itens que podem ser cedidos para obter ganhos.</p>
+                    <h4 class="text-xs font-bold uppercase text-amber-700">Concessões Planejadas</h4>
+                    <p class="text-[9px] text-slate-400 italic">O que será cedido e o que será pedido em troca (Moedas de Troca).</p>
                     <textarea id="concessoes" class="w-full bg-slate-50 border rounded-xl p-4 text-sm min-h-[100px]"></textarea>
                 </div>
             </div>
         </section>
 
-        <h3 class="text-2xl font-black uppercase tracking-tighter mb-8 text-center no-print">4. Seleção das 16 Alavancas de Valor (Kearney)</h3>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20 no-print">
+        <h3 class="text-2xl font-black uppercase tracking-tighter mb-8 text-center no-print italic">4. Tabuleiro de 64 Métodos (Purchasing Chessboard®)</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+            
             <div class="strategy-col space-y-3">
-                <div class="p-3 bg-red-600 text-white rounded-xl font-bold text-[10px] uppercase text-center shadow-lg">Mudar Natureza</div>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-red-50">Inovação Disruptiva <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">Criar novos produtos</div><div class="method-item">Substituir materiais</div><div class="method-item">Redesenhar para eficiência</div><div class="method-item">Inovação de fornecedor</div></div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-red-50">Re-especificação <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">Simplificar funções</div><div class="method-item">Padronizar especificações</div><div class="method-item">Relaxar restrições</div><div class="method-item">Padronização global</div></div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-red-50">Integração Vertical <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">Make-or-buy</div><div class="method-item">Joint Venture</div><div class="method-item">Adquirir fornecedor</div><div class="method-item">Integração virtual</div></div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-red-50">Gestão de Risco <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">Hedge de preços</div><div class="method-item">Dual Sourcing</div><div class="method-item">Buffer de estoque</div><div class="method-item">Contratos plurianuais</div></div></details>
+                <div class="p-4 bg-red-600 text-white rounded-xl text-center">
+                    <h2 class="font-black text-xs uppercase tracking-widest">Mudar Natureza</h2>
+                    <p class="text-[8px] opacity-80 uppercase font-bold">Poder do Fornecedor Alto</p>
+                </div>
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm">
+                    <summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-red-50">Inovação Disruptiva <span>+</span></summary>
+                    <div class="p-4 text-slate-600 border-t bg-slate-50">
+                        <div class="method-item"><b>1. Criar Novos Produtos:</b> Desenvolver alternativas funcionais para fugir de monopólios técnicos.</div>
+                        <div class="method-item"><b>2. Substituir Materiais:</b> Trocar por insumos mais abundantes e competitivos no mercado.</div>
+                        <div class="method-item"><b>3. Redesenhar:</b> Alterar o design original para eliminar componentes controlados por poucos fornecedores.</div>
+                        <div class="method-item"><b>4. Inovação de Fornecedor:</b> Co-desenvolver tecnologia com novos entrantes para quebrar líderes de mercado.</div>
+                    </div>
+                </details>
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm">
+                    <summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-red-50">Re-especificação <span>+</span></summary>
+                    <div class="p-4 text-slate-600 border-t bg-slate-50">
+                        <div class="method-item"><b>5. Simplificar Funções:</b> Remover requisitos excessivos que engessam a escolha do fornecedor.</div>
+                        <div class="method-item"><b>6. Padronizar:</b> Usar normas técnicas universais em vez de especificações proprietárias.</div>
+                        <div class="method-item"><b>7. Relaxar Restrições:</b> Permitir variações técnicas para aumentar a base de fornecimento.</div>
+                        <div class="method-item"><b>8. Alinhamento Global:</b> Padronizar itens entre sites para ganhar escala e flexibilidade técnica.</div>
+                    </div>
+                </details>
+                </div>
+
+            <div class="strategy-col space-y-3">
+                <div class="p-4 bg-purple-600 text-white rounded-xl text-center">
+                    <h2 class="font-black text-xs uppercase tracking-widest">Vantagem Conjunta</h2>
+                    <p class="text-[8px] opacity-80 uppercase font-bold">Equilíbrio de Poder</p>
+                </div>
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm">
+                    <summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-purple-50">Cadeia de Valor <span>+</span></summary>
+                    <div class="p-4 text-slate-600 border-t bg-slate-50">
+                        <div class="method-item"><b>17. Eliminar Desperdício:</b> Lean conjunto para reduzir custos logísticos e de produção.</div>
+                        <div class="method-item"><b>18. Otimizar Logística:</b> Integrar fluxos de transporte e armazenagem entre as partes.</div>
+                        <div class="method-item"><b>19. Produção Sincronizada:</b> Alinhar o ritmo de fornecimento ao consumo exato (Just-in-Time).</div>
+                        <div class="method-item"><b>20. P&D Conjunto:</b> Pesquisa compartilhada para novos produtos de alto valor.</div>
+                    </div>
+                </details>
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm">
+                    <summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-purple-50">Parceria de Custos <span>+</span></summary>
+                    <div class="p-4 text-slate-600 border-t bg-slate-50">
+                        <div class="method-item"><b>25. Open Book Costing:</b> Transparência total nas margens e custos do parceiro estratégico.</div>
+                        <div class="method-item"><b>26. Modelação de Custos:</b> Criação conjunta de fórmulas de reajuste e índices.</div>
+                        <div class="method-item"><b>27. TCO Analysis:</b> Foco no custo total de posse, não apenas no preço de compra.</div>
+                        <div class="method-item"><b>28. Should-Cost:</b> Cálculo técnico do valor justo baseado em drivers de engenharia.</div>
+                    </div>
+                </details>
             </div>
+
             <div class="strategy-col space-y-3">
-                <div class="p-3 bg-purple-600 text-white rounded-xl font-bold text-[10px] uppercase text-center shadow-lg">Vantagem Conjunta</div>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-purple-50">Cadeia de Valor <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">Eliminar desperdício</div><div class="method-item">Otimizar logística</div><div class="method-item">Produção sincronizada</div><div class="method-item">P&D conjunto</div></div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-purple-50">Operações Integradas <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">VMI</div><div class="method-item">Just-in-Time</div><div class="method-item">Integração eletrônica</div><div class="method-item">Planejamento partilhado</div></div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-purple-50">Parceria de Custos <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">Open Book Costing</div><div class="method-item">Modelação de custos</div><div class="method-item">TCO Analysis</div><div class="method-item">Should-Cost analysis</div></div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-purple-50">Partilha de Lucros <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">Contratos incentivo</div><div class="method-item">Gain sharing</div><div class="method-item">Target costing</div><div class="method-item">Investimento conjunto</div></div></details>
+                <div class="p-4 bg-slate-600 text-white rounded-xl text-center">
+                    <h2 class="font-black text-xs uppercase tracking-widest">Gerir Gastos</h2>
+                    <p class="text-[8px] opacity-80 uppercase font-bold">Baixo Poder (Ambos)</p>
+                </div>
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm">
+                    <summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-slate-50">Gestão da Demanda <span>+</span></summary>
+                    <div class="p-4 text-slate-600 border-t bg-slate-50">
+                        <div class="method-item"><b>33. Visibilidade de Gastos:</b> Dashboards para entender padrões de consumo interno.</div>
+                        <div class="method-item"><b>34. Compliance:</b> Garantir que as compras sigam os contratos negociados (Anti-Maverick).</div>
+                        <div class="method-item"><b>35. Reduzir Consumo:</b> Atuar na causa raiz para diminuir a necessidade do item.</div>
+                    </div>
+                </details>
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm">
+                    <summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-slate-50">Agregação Volume <span>+</span></summary>
+                    <div class="p-4 text-slate-600 border-t bg-slate-50">
+                        <div class="method-item"><b>45. Bundling Unidades:</b> Unir volumes de diferentes plantas ou filiais.</div>
+                        <div class="method-item"><b>46. Bundling Categorias:</b> Negociar famílias de produtos similares com um só fornecedor.</div>
+                        <div class="method-item"><b>47. Acordos Plurianuais:</b> Travar preços em troca de fidelidade de longo prazo.</div>
+                    </div>
+                </details>
             </div>
+
             <div class="strategy-col space-y-3">
-                <div class="p-3 bg-slate-600 text-white rounded-xl font-bold text-[10px] uppercase text-center shadow-lg">Gerir Gastos</div>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-slate-50">Gestão da Demanda <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">Visibilidade de gastos</div><div class="method-item">Compliance política</div><div class="method-item">Reduzir consumo</div><div class="method-item">Eliminar Maverick Spend</div></div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-slate-50">Co-Sourcing <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">Consórcios de compra</div><div class="method-item">Grupos de compra</div><div class="method-item">Piggy-backing</div><div class="method-item">Serviços partilhados</div></div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-slate-50">Mineração de Dados <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">Benchmark de preços</div><div class="method-item">Racionalização base</div><div class="method-item">Cubo de gastos</div><div class="method-item">Auditoria faturas</div></div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-slate-50">Agregação Volume <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">Bundling unidades</div><div class="method-item">Bundling categorias</div><div class="method-item">Acordos plurianuais</div><div class="method-item">Redução SKU</div></div></details>
-            </div>
-            <div class="strategy-col space-y-3">
-                <div class="p-3 bg-blue-600 text-white rounded-xl font-bold text-[10px] uppercase text-center shadow-lg">Alavancar Competição</div>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-blue-50">Globalização <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">LCC Sourcing</div><div class="method-item">Gabinete Global</div><div class="method-item">Mercados Emergentes</div><div class="method-item">Offsets comerciais</div></div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-blue-50">Concursos <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">RFX Digital</div><div class="method-item">Licitação expressiva</div><div class="method-item">Bidding performance</div><div class="method-item">Seleção multicritério</div></div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-blue-50">Target Pricing <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">Preços lineares</div><div class="method-item">Análise regressão</div><div class="method-item">Clean-sheet costing</div><div class="method-item">Benchmark competitivo</div></div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-blue-50">Leilões Reversos <span>+</span></summary>
-                    <div class="p-4 text-slate-600 border-t bg-slate-50 text-[10px] space-y-2"><div class="method-item">Leilão Inglês</div><div class="method-item">Leilão Holandês</div><div class="method-item">Leilão Japonês</div><div class="method-item">Leilão Selado</div></div></details>
+                <div class="p-4 bg-blue-600 text-white rounded-xl text-center">
+                    <h2 class="font-black text-xs uppercase tracking-widest">Alavancar Competição</h2>
+                    <p class="text-[8px] opacity-80 uppercase font-bold">Poder do Comprador Alto</p>
+                </div>
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm">
+                    <summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-blue-50">Target Pricing <span>+</span></summary>
+                    <div class="p-4 text-slate-600 border-t bg-slate-50">
+                        <div class="method-item"><b>57. Preços Lineares:</b> Gráficos de dispersão para identificar fornecedores fora da curva.</div>
+                        <div class="method-item"><b>58. Regressão:</b> Análise estatística para prever preço baseado em variáveis de mercado.</div>
+                        <div class="method-item"><b>59. Clean-sheet:</b> Desmontar o produto e precificar cada componente individualmente.</div>
+                    </div>
+                </details>
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm">
+                    <summary class="p-4 text-[10px] font-bold uppercase cursor-pointer flex justify-between hover:bg-blue-50">Leilões Reversos <span>+</span></summary>
+                    <div class="p-4 text-slate-600 border-t bg-slate-50">
+                        <div class="method-item"><b>61. Leilão Inglês:</b> Lances descendentes em tempo real.</div>
+                        <div class="method-item"><b>62. Leilão Holandês:</b> Preço sobe até o primeiro fornecedor aceitar.</div>
+                        <div class="method-item"><b>63. Japonês:</b> Lances obrigatórios que diminuem em intervalos fixos.</div>
+                    </div>
+                </details>
             </div>
         </div>
 
         <div class="text-center no-print pb-20">
             <button onclick="window.print()" class="bg-slate-900 text-white px-16 py-6 rounded-2xl font-black text-xs shadow-2xl hover:bg-black transition transform hover:scale-105 uppercase tracking-widest">
-                Gerar Relatório Final (PDF)
+                Gerar Relatório Estratégico Final (PDF)
             </button>
         </div>
     </main>
 
     <footer class="bg-white py-12 border-t border-slate-100 text-center no-print">
         <p class="font-bold text-slate-800">Prof. Thiago Lima</p>
-        <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-2 font-semibold">Doutor e Pesquisador | MBA & Negociação Estratégica</p>
+        <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-2">Doutor e Pesquisador | MBA & Negociação Estratégica</p>
     </footer>
 
     <script>
         const ctx = document.getElementById('mainChart').getContext('2d');
-        const chart = new Chart(ctx, {
-            type: 'scatter',
-            data: { datasets: [{ label: 'Posição', data: [{x: 50, y: 50}], backgroundColor: '#1e3a8a', pointRadius: 10 }] },
-            options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: 0, max: 100 }, y: { min: 0, max: 100 } }, plugins: { legend: { display: false } } }
-        });
-
+        const chart = new Chart(ctx, { type: 'scatter', data: { datasets: [{ data: [{x: 50, y: 50}], backgroundColor: '#1e3a8a', pointRadius: 10 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: 0, max: 100 }, y: { min: 0, max: 100 } }, plugins: { legend: { display: false } } } });
+        
         function update() {
             const x = document.getElementById('x').value;
             const y = document.getElementById('y').value;
             const r = document.getElementById('kRisco').value;
             const i = document.getElementById('kImpacto').value;
-
             document.getElementById('vX').innerText = x + '%';
             document.getElementById('vY').innerText = y + '%';
             document.getElementById('vImpacto').innerText = i > 50 ? "Alto" : "Baixo";
             document.getElementById('vRisco').innerText = r > 50 ? "Alto" : "Baixo";
-
-            chart.data.datasets[0].data[0] = {x, y};
-            chart.update();
+            chart.data.datasets[0].data[0] = {x, y}; chart.update();
 
             let kRes = ""; let kDica = "";
-            if(i > 50 && r > 50) { kRes = "Estratégico"; kDica = "Alto Risco / Alto Impacto: Parcerias estratégicas e inovação conjunta."; }
-            else if(i > 50) { kRes = "Alavancagem"; kDica = "Baixo Risco / Alto Impacto: Use seu poder de compra para maximizar economias."; }
-            else if(r > 50) { kRes = "Gargalo"; kDica = "Alto Risco / Baixo Impacto: Garanta o suprimento e busque substitutos."; }
-            else { kRes = "Não Crítico"; kDica = "Baixo Risco / Baixo Impacto: Foque em eficiência administrativa."; }
+            if(i > 50 && r > 50) { kRes = "Estratégico"; kDica = "Alto Risco e Alto Impacto. Exige parcerias e inovação conjunta."; }
+            else if(i > 50) { kRes = "Alavancagem"; kDica = "Alto Impacto e Baixo Risco. Use seu poder para maximizar economias."; }
+            else if(r > 50) { kRes = "Gargalo"; kDica = "Alto Risco e Baixo Impacto. Garanta suprimento e busque substitutos."; }
+            else { kRes = "Não Crítico"; kDica = "Baixo Risco e Impacto. Foque em eficiência administrativa."; }
             document.getElementById('kraljicResult').innerText = kRes;
             document.getElementById('kraljicDica').innerText = kDica;
         }
@@ -212,22 +255,14 @@
             const x = document.getElementById('x').value;
             const y = document.getElementById('y').value;
             const r = document.getElementById('kRisco').value;
-            const i = document.getElementById('kImpacto').value;
             const spend = document.getElementById('catSpend').value || "não informado";
             const res = document.getElementById('aiResponse');
-            
             res.classList.remove('hidden');
             let recomendacao = "";
-
-            if (r > 60 && y > 60) {
-                recomendacao = `<b>DIAGNÓSTICO: ALTA VULNERABILIDADE.</b> O Spend de ${spend} está sob domínio do fornecedor. Sua BATNA é fraca. <b>AÇÃO:</b> No Tabuleiro Kearney, priorize 'Inovação Disruptiva' (Q1). Redesenhe o processo para quebrar o monopólio técnico ou substitua o material.`;
-            } else if (i > 60 && x > 60) {
-                recomendacao = `<b>DIAGNÓSTICO: OPORTUNIDADE DE ESCALA.</b> Com alto spend (${spend}) e baixo risco, você detém o poder. <b>AÇÃO:</b> Use 'Target Pricing' e 'Leilões Reversos' (Q4). A negociação deve ser distributiva para capturar margem.`;
-            } else if (y > 60 && x > 60) {
-                recomendacao = `<b>DIAGNÓSTICO: PARCERIA ESTRATÉGICA.</b> Ambos têm poder. <b>AÇÃO:</b> Siga para 'Vantagem Conjunta' (Q2). Use 'Open Book Costing' para reduzir o TCO sistêmico da categoria.`;
-            } else {
-                recomendacao = `<b>DIAGNÓSTICO: EFICIÊNCIA OPERACIONAL.</b> Categoria de baixo risco. <b>AÇÃO:</b> 'Gerir Gastos' (Q3). Agregue volume ou use Co-Sourcing para reduzir custos transacionais.`;
-            }
+            if (r > 60 && y > 60) recomendacao = `<b>DIAGNÓSTICO KEARNEY: ALTA VULNERABILIDADE.</b> O spend de ${spend} está sob domínio do fornecedor. Priorize 'Inovação Disruptiva' (Q1) para quebrar o monopólio técnico.`;
+            else if (x > 60) recomendacao = `<b>DIAGNÓSTICO KEARNEY: OPORTUNIDADE DE ESCALA.</b> Você detém o poder. Use 'Target Pricing' e 'Leilões' (Q4) para capturar margem.`;
+            else if (y > 60 && x > 60) recomendacao = `<b>DIAGNÓSTICO KEARNEY: VANTAGEM CONJUNTA.</b> Siga para 'Parcerias' (Q2) e use 'Open Book Costing'.`;
+            else recomendacao = `<b>DIAGNÓSTICO KEARNEY: EFICIÊNCIA OPERACIONAL.</b> Use 'Gerir Gastos' (Q3) para reduzir custos transacionais.`;
             res.innerHTML = recomendacao;
         }
 
