@@ -8,13 +8,16 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #fcfcfd; color: #1e293b; }
+        body { font-family: 'Inter', sans-serif; background-color: #fcfcfd; color: #1e293b; scroll-behavior: smooth; }
         .chart-container { position: relative; width: 100%; max-width: 650px; height: 380px; margin: auto; }
         input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 22px; width: 22px; border-radius: 50%; background: #1e3a8a; cursor: pointer; margin-top: -8px; border: 2px solid #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; cursor: pointer; background: #e2e8f0; border-radius: 4px; }
-        .board-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .board-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
         .board-card:hover { transform: translateY(-6px); box-shadow: 0 25px 30px -10px rgba(0,0,0,0.1); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         .fade-in { animation: fadeIn 0.6s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -23,96 +26,143 @@
 
     <nav class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-18 py-4">
+            <div class="flex justify-between h-18 py-4 text-sm font-bold uppercase tracking-widest">
                 <div class="flex items-center gap-2">
                     <span class="text-2xl">♟️</span>
-                    <span class="text-xl font-extrabold text-blue-900 tracking-tight">Kearney: Compras & Negociação</span>
+                    <span class="text-blue-900">Kearney: Compras & Negociação</span>
                 </div>
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#simulador" class="text-gray-500 hover:text-blue-900 font-semibold text-sm transition">Simulador</a>
-                    <a href="#framework" class="text-gray-500 hover:text-blue-900 font-semibold text-sm transition">O Framework</a>
-                    <a href="#analise" class="text-gray-500 hover:text-blue-900 font-semibold text-sm transition">Análise de Valor</a>
+                <div class="hidden md:flex space-x-8 items-center text-slate-500">
+                    <a href="#simulador" class="hover:text-blue-900 transition">Simulador</a>
+                    <a href="#guia" class="hover:text-blue-900 transition">Guia Tático</a>
+                    <a href="#framework" class="hover:text-blue-900 transition">Alavancas</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-5xl sm:text-7xl font-extrabold text-slate-900 tracking-tight mb-8">
-                Domine sua Estratégia de <span class="text-blue-800">Compras e Negociação</span>
+    <header class="bg-white border-b border-slate-50">
+        <div class="max-w-7xl mx-auto py-16 px-4 text-center">
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 mb-6">
+                Estratégia de <span class="text-blue-800">Compras e Negociação</span>
             </h1>
-            <p class="max-w-3xl mx-auto text-xl text-slate-500 leading-relaxed mb-12">
-                Identifique as alavancas táticas para cada cenário. Do gerenciamento de gastos à mudança na natureza da procura, explore os 64 métodos do Tabuleiro de Xadrez.
+            <p class="max-w-2xl mx-auto text-lg text-slate-500 mb-10">
+                Uma ferramenta interativa para diagnóstico de categorias e seleção de alavancas de valor baseada no framework da Kearney.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#simulador" class="px-10 py-4 bg-blue-900 text-white font-bold rounded-xl shadow-xl hover:bg-blue-800 transition-all transform hover:scale-105">Iniciar Diagnóstico</a>
-                <a href="#framework" class="px-10 py-4 bg-white border-2 border-slate-200 text-slate-700 font-bold rounded-xl hover:bg-slate-50 transition-all">Explorar Métodos</a>
+            <div class="flex justify-center gap-4">
+                <a href="#simulador" class="px-8 py-3 bg-blue-900 text-white font-bold rounded-lg shadow-lg hover:bg-blue-800 transition">Iniciar Simulação</a>
             </div>
         </div>
     </header>
 
-    <section id="simulador" class="py-20 bg-slate-50 border-y border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-12 gap-12">
-                <div class="lg:col-span-5 bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
-                    <h2 class="text-2xl font-bold text-slate-900 mb-2">Simulador de Poder</h2>
-                    <p class="text-slate-500 text-sm mb-10">Mova os cursores para refletir a realidade da negociação.</p>
-                    <div class="space-y-10">
-                        <div>
-                            <div class="flex justify-between items-end mb-4">
-                                <label class="text-sm font-bold text-slate-700 uppercase">Poder de Compra (X)</label>
-                                <span id="valCompra" class="text-2xl font-black text-blue-900">50%</span>
-                            </div>
-                            <input type="range" id="slideCompra" min="0" max="100" value="50">
+    <section id="simulador" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-12 gap-12 items-start">
+            <div class="lg:col-span-5 bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
+                <h2 class="text-2xl font-bold mb-6">Simulador de Poder</h2>
+                <div class="space-y-10">
+                    <div>
+                        <div class="flex justify-between mb-4">
+                            <label class="text-xs font-bold uppercase text-slate-500">Poder de Compra</label>
+                            <span id="valCompra" class="text-xl font-black text-blue-900">50%</span>
                         </div>
-                        <div>
-                            <div class="flex justify-between items-end mb-4">
-                                <label class="text-sm font-bold text-slate-700 uppercase">Poder do Fornecedor (Y)</label>
-                                <span id="valFornecedor" class="text-2xl font-black text-blue-900">50%</span>
-                            </div>
-                            <input type="range" id="slideFornecedor" min="0" max="100" value="50">
-                        </div>
+                        <input type="range" id="slideCompra" min="0" max="100" value="50">
                     </div>
-                    <div id="resultadoBox" class="mt-12 p-6 rounded-2xl border-2 transition-all bg-slate-50 border-slate-200">
-                        <h3 id="resTitulo" class="text-2xl font-extrabold text-slate-900">Ajuste os parâmetros</h3>
-                        <p id="resDesc" class="text-sm text-slate-600 mt-2">Veja a orientação estratégica e tática recomendada.</p>
-                        <button onclick="focarNoFramework()" id="btnExplorar" class="hidden mt-6 w-full py-3 bg-white border border-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-50 transition">Ver Métodos Detalhados ↓</button>
+                    <div>
+                        <div class="flex justify-between mb-4">
+                            <label class="text-xs font-bold uppercase text-slate-500">Poder do Fornecedor</label>
+                            <span id="valFornecedor" class="text-xl font-black text-blue-900">50%</span>
+                        </div>
+                        <input type="range" id="slideFornecedor" min="0" max="100" value="50">
                     </div>
                 </div>
-                <div class="lg:col-span-7 bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
-                    <div class="chart-container"><canvas id="matrizChart"></canvas></div>
+                <div id="resultadoBox" class="mt-12 p-6 rounded-2xl border-2 bg-slate-50 border-slate-200 transition-all">
+                    <h3 id="resTitulo" class="text-xl font-bold text-slate-900">Ajuste os Sliders</h3>
+                    <p id="resDesc" class="text-sm text-slate-600 mt-2 italic">A posição no gráfico define sua postura tática.</p>
+                </div>
+            </div>
+            <div class="lg:col-span-7 bg-white p-6 rounded-3xl shadow-xl border border-slate-100">
+                <div class="chart-container"><canvas id="matrizChart"></canvas></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="guia" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="space-y-6">
+                    <h2 class="text-3xl font-extrabold text-slate-900 mb-8">Guia Tático de Negociação</h2>
+                    <div class="p-6 bg-blue-50 rounded-2xl border-l-4 border-blue-600">
+                        <h4 class="font-bold text-blue-900">Poder do Comprador Dominante</h4>
+                        <p class="text-sm text-blue-800 mt-2">Foco em táticas competitivas: leilões reversos, consolidação de volumes globais e padronização para aumentar a concorrência entre fornecedores.</p>
+                    </div>
+                    <div class="p-6 bg-red-50 rounded-2xl border-l-4 border-red-600">
+                        <h4 class="font-bold text-red-900">Poder do Fornecedor Dominante</h4>
+                        <p class="text-sm text-red-800 mt-2">Foco em táticas técnicas: redesenho de especificações (Technical Redesign), busca de materiais alternativos e gestão rigorosa da demanda interna.</p>
+                    </div>
+                </div>
+                <div class="bg-slate-900 p-8 rounded-3xl text-white">
+                    <h3 class="text-xl font-bold mb-6 text-amber-400">📖 Glossário de Alavancas</h3>
+                    <div class="space-y-6 h-[320px] overflow-y-auto pr-4 custom-scrollbar">
+                        <div>
+                            <h4 class="text-amber-400 text-xs font-bold uppercase">Target Pricing</h4>
+                            <p class="text-slate-300 text-sm mt-1">Definição do preço ideal via decomposição de custos (Should-Cost), ignorando tabelas fixas.</p>
+                        </div>
+                        <hr class="border-white/10">
+                        <div>
+                            <h4 class="text-amber-400 text-xs font-bold uppercase">Value Engineering</h4>
+                            <p class="text-slate-300 text-sm mt-1">Eliminação de funções que geram custos mas não agregam valor percebido ao cliente final.</p>
+                        </div>
+                        <hr class="border-white/10">
+                        <div>
+                            <h4 class="text-amber-400 text-xs font-bold uppercase">Global Sourcing</h4>
+                            <p class="text-slate-300 text-sm mt-1">Exploração de fornecedores em países de baixo custo para quebrar monopólios locais.</p>
+                        </div>
+                        <hr class="border-white/10">
+                        <div>
+                            <h4 class="text-amber-400 text-xs font-bold uppercase">Bundling de Categoria</h4>
+                            <p class="text-slate-300 text-sm mt-1">Agrupamento de gastos de diferentes unidades de negócio para aumentar o volume negociado.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="framework" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 text-center mb-16">
-            <h2 class="text-4xl font-extrabold text-slate-900">As 4 Estratégias e Táticas de Negociação</h2>
-            <p class="mt-4 text-slate-500">Clique num quadrante para explorar as alavancas e métodos específicos.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto px-4" id="cardsGrid">
-            </div>
-        <div id="detalhesContainer" class="hidden mt-16 max-w-5xl mx-auto px-4 fade-in">
-            <div class="bg-slate-900 rounded-[2rem] overflow-hidden shadow-2xl">
-                <div class="px-10 py-8 text-white flex justify-between items-center border-b border-white/10">
-                    <h3 id="detalhesTitulo" class="text-3xl font-black">Título</h3>
-                    <button onclick="fecharDetalhes()" class="p-3 bg-white/10 hover:bg-white/20 rounded-full text-xs font-bold px-4">FECHAR</button>
-                </div>
-                <div class="p-10"><div id="alavancasGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div></div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-white py-12 border-t border-slate-100 text-center">
-        <p class="text-slate-500 font-semibold">Desenvolvido por Prof. Thiago Lima</p>
-        <p class="text-slate-400 text-xs mt-2">Baseado no framework The Purchasing Chessboard® da Kearney.</p>
+    <footer class="bg-slate-50 py-12 border-t border-slate-200 text-center">
+        <p class="text-slate-600 font-bold">Desenvolvido por Prof. Thiago Lima</p>
+        <p class="text-slate-400 text-xs mt-2 uppercase tracking-tighter italic">Especialista em Logística, Operações e Negociação Estratégica</p>
     </footer>
 
     <script>
-        // Lógica de dados e gráficos (mesma lógica funcional anterior com nomes atualizados)
-        const strategies = {
-            q1: { titulo: "Mudar Natureza da Procura", cor: "#ef4444", alavancas: [{ nome: "Inovação", métodos: ["Substituir Materiais", "Redesenhar Especificações"] }, { nome: "Integração", métodos: ["Make or Buy", "Verticalização"] }] },
-            q2: { titulo: "Procurar Vantagem Conjunta", cor: "#a855f7", alavancas: [{ nome: "Colaboração", métodos: ["P&D Conjunto", "Value Chain Management"] }, { nome: "Custos", métodos: ["Open Book", "Should-Cost Analysis"] }] },
-            q3: { titulo: "Gerir Gastos", cor: "#64748b", alavancas: [{
+        const ctx = document.getElementById('matrizChart').getContext('2d');
+        const matrizChart = new Chart(ctx, {
+            type: 'scatter',
+            data: { datasets: [{ label: 'Posição', data: [{x: 50, y: 50}], backgroundColor: '#1e3a8a', pointRadius: 12 }] },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { x: { min: 0, max: 100, title: { display: true, text: 'Poder de Compra' } }, y: { min: 0, max: 100, title: { display: true, text: 'Poder do Fornecedor' } } },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        function update() {
+            const x = document.getElementById('slideCompra').value;
+            const y = document.getElementById('slideFornecedor').value;
+            document.getElementById('valCompra').innerText = x + '%';
+            document.getElementById('valFornecedor').innerText = y + '%';
+            matrizChart.data.datasets[0].data[0] = {x, y};
+            matrizChart.update();
+
+            const resT = document.getElementById('resTitulo');
+            const resD = document.getElementById('resDesc');
+            if(y > 50 && x > 50) { resT.innerText = "Vantagem Conjunta"; resD.innerText = "Parcerias estratégicas e inovação conjunta."; }
+            else if(y > 50) { resT.innerText = "Mudar Natureza"; resD.innerText = "Redesenho técnico para reduzir dependência."; }
+            else if(x > 50) { resT.innerText = "Alavancar Competição"; resD.innerText = "Uso de leilões e pressão sobre margens."; }
+            else { resT.innerText = "Gerir Gastos"; resD.innerText = "Eficiência administrativa e automação."; }
+        }
+
+        document.getElementById('slideCompra').oninput = update;
+        document.getElementById('slideFornecedor').oninput = update;
+        update();
+    </script>
+</body>
+</html>
