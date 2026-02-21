@@ -9,69 +9,75 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; scroll-behavior: smooth; }
-        .strategy-col { transition: all 0.3s ease; }
         details summary::-webkit-details-marker { display: none; }
         details[open] summary span { transform: rotate(45deg); }
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        
+        /* Estilos para Impressão/PDF */
+        @media print {
+            .no-print, nav, footer, .hero-bg { display: none !important; }
+            details { display: block !important; border: 1px solid #e2e8f0; margin-bottom: 1rem; page-break-inside: avoid; }
+            details div { display: block !important; opacity: 1 !important; }
+            summary span { display: none; }
+            .grid { display: block !important; }
+            .strategy-col { margin-bottom: 2rem; border-bottom: 2px solid #eee; padding-bottom: 1rem; }
+            body { background: white; font-size: 12pt; }
+            h1 { font-size: 24pt; color: #1e3a8a; }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 no-print">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <span class="text-2xl">♟️</span>
-                <span class="font-black text-slate-800 tracking-tighter uppercase">Purchasing Chessboard Interactive</span>
+                <span class="font-black text-slate-800 uppercase tracking-tighter">Purchasing Chessboard Interactive</span>
             </div>
             <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest hidden md:block">
-                Prof. Thiago Lima | Estratégia e Negociação
+                Prof. Thiago Lima | MBA & Negociação
             </div>
         </div>
     </nav>
 
-    <header class="bg-white py-12 border-b border-slate-100 text-center">
+    <header class="bg-white py-12 border-b border-slate-100 text-center hero-bg">
         <h1 class="text-4xl font-extrabold text-slate-900 mb-2">O Tabuleiro de 64 Métodos</h1>
-        <p class="text-slate-500 max-w-2xl mx-auto px-4">Explore a taxonomia completa para otimização de suprimentos e táticas de negociação estratégica.</p>
+        <p class="text-slate-500 max-w-2xl mx-auto px-4">Guia tático interativo para otimização de suprimentos e negociações estratégicas.</p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="max-w-7xl mx-auto px-4 mt-8 no-print text-center">
+        <button onclick="window.print()" class="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-slate-800 transition shadow-lg transform hover:scale-105">
+            <span>🖨️</span> Gerar PDF do Guia de Métodos
+        </button>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             
             <div class="strategy-col space-y-4">
-                <div class="p-4 bg-red-600 text-white rounded-xl shadow-lg mb-6 text-center">
-                    <span class="text-[10px] block font-bold opacity-80 uppercase">Poder do Fornecedor Alto</span>
-                    <h2 class="font-bold uppercase tracking-tight">Mudar Natureza</h2>
+                <div class="p-4 bg-red-600 text-white rounded-xl shadow-md mb-6 text-center">
+                    <span class="text-[10px] block font-bold opacity-80 uppercase">Fornecedor Dominante</span>
+                    <h2 class="font-bold uppercase">Mudar Natureza</h2>
                 </div>
-                
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-red-50 transition">
-                        Inovação Disruptiva <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-red-50">Inovação Disruptiva <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
                         <p>• Criar novos produtos</p><p>• Substituir materiais</p><p>• Redesenhar para eficiência</p><p>• Inovação de fornecedor</p>
                     </div>
                 </details>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-red-50 transition">
-                        Re-especificação <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-red-50">Re-especificação <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
                         <p>• Simplificar funções</p><p>• Padronizar especificações</p><p>• Relaxar restrições</p><p>• Padronização global</p>
                     </div>
                 </details>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-red-50 transition">
-                        Integração Vertical <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-red-50">Integração Vertical <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
-                        <p>• Make-or-buy (Fazer)</p><p>• Joint Venture</p><p>• Adquirir fornecedor</p><p>• Integração virtual</p>
+                        <p>• Make-or-buy</p><p>• Joint Venture</p><p>• Adquirir fornecedor</p><p>• Integração virtual</p>
                     </div>
                 </details>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-red-50 transition">
-                        Gestão de Risco <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-red-50">Gestão de Risco <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
                         <p>• Hedge de preços</p><p>• Dual Sourcing</p><p>• Buffer de estoque</p><p>• Contratos Long-term</p>
                     </div>
@@ -79,38 +85,30 @@
             </div>
 
             <div class="strategy-col space-y-4">
-                <div class="p-4 bg-purple-600 text-white rounded-xl shadow-lg mb-6 text-center">
+                <div class="p-4 bg-purple-600 text-white rounded-xl shadow-md mb-6 text-center">
                     <span class="text-[10px] block font-bold opacity-80 uppercase">Equilíbrio de Poder</span>
-                    <h2 class="font-bold uppercase tracking-tight">Vantagem Conjunta</h2>
+                    <h2 class="font-bold uppercase">Vantagem Conjunta</h2>
                 </div>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-purple-50 transition">
-                        Gestão da Cadeia de Valor <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-purple-50">Cadeia de Valor <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
                         <p>• Eliminar desperdício</p><p>• Otimizar logística</p><p>• Produção sincronizada</p><p>• P&D Conjunto</p>
                     </div>
                 </details>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-purple-50 transition">
-                        Operações Integradas <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-purple-50">Operações Integradas <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
                         <p>• VMI (Estoque Gerido)</p><p>• Just-in-Time</p><p>• Integração eletrônica</p><p>• Planejamento partilhado</p>
                     </div>
                 </details>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-purple-50 transition">
-                        Parceria de Custos <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-purple-50">Parceria de Custos <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
                         <p>• Open Book Costing</p><p>• Modelação de custos</p><p>• TCO (Custo Total)</p><p>• Should-Cost Analysis</p>
                     </div>
                 </details>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-purple-50 transition">
-                        Partilha de Lucros <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-purple-50">Partilha de Lucros <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
                         <p>• Contratos de incentivo</p><p>• Gain Sharing</p><p>• Target Costing</p><p>• Investimento conjunto</p>
                     </div>
@@ -118,38 +116,30 @@
             </div>
 
             <div class="strategy-col space-y-4">
-                <div class="p-4 bg-slate-600 text-white rounded-xl shadow-lg mb-6 text-center">
-                    <span class="text-[10px] block font-bold opacity-80 uppercase">Poder Baixo (Ambos)</span>
-                    <h2 class="font-bold uppercase tracking-tight">Gerir Gastos</h2>
+                <div class="p-4 bg-slate-600 text-white rounded-xl shadow-md mb-6 text-center">
+                    <span class="text-[10px] block font-bold opacity-80 uppercase">Poder Baixo</span>
+                    <h2 class="font-bold uppercase">Gerir Gastos</h2>
                 </div>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-slate-50 transition">
-                        Gestão da Demanda <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-slate-50">Gestão da Demanda <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
                         <p>• Visibilidade de gastos</p><p>• Compliance de política</p><p>• Reduzir consumo</p><p>• Eliminar Maverick Spend</p>
                     </div>
                 </details>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-slate-50 transition">
-                        Co-Sourcing <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-slate-50">Co-Sourcing <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
                         <p>• Consórcios de compra</p><p>• Grupos de compra (GPO)</p><p>• Piggy-backing</p><p>• Serviços partilhados</p>
                     </div>
                 </details>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-slate-50 transition">
-                        Mineração de Dados <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-slate-50">Mineração de Dados <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
                         <p>• Benchmark de preços</p><p>• Racionalização base</p><p>• Cubo de gastos</p><p>• Auditoria de faturas</p>
                     </div>
                 </details>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-slate-50 transition">
-                        Agregação de Volume <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-slate-50">Agregação de Volume <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
                         <p>• Bundling entre unidades</p><p>• Bundling entre categorias</p><p>• Acordos plurianuais</p><p>• Redução de SKU</p>
                     </div>
@@ -157,38 +147,30 @@
             </div>
 
             <div class="strategy-col space-y-4">
-                <div class="p-4 bg-blue-600 text-white rounded-xl shadow-lg mb-6 text-center">
-                    <span class="text-[10px] block font-bold opacity-80 uppercase">Poder do Comprador Alto</span>
-                    <h2 class="font-bold uppercase tracking-tight">Alavancar Competição</h2>
+                <div class="p-4 bg-blue-600 text-white rounded-xl shadow-md mb-6 text-center">
+                    <span class="text-[10px] block font-bold opacity-80 uppercase">Comprador Dominante</span>
+                    <h2 class="font-bold uppercase">Alavancar Competição</h2>
                 </div>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-blue-50 transition">
-                        Globalização <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-blue-50">Globalização <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
-                        <p>• LCC Sourcing (Baixo Custo)</p><p>• Gabinete Global</p><p>• Mercados Emergentes</p><p>• Offsets comerciais</p>
+                        <p>• LCC Sourcing</p><p>• Gabinete Global</p><p>• Mercados Emergentes</p><p>• Offsets comerciais</p>
                     </div>
                 </details>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-blue-50 transition">
-                        Concursos (Tendering) <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-blue-50">Concursos <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
-                        <p>• RFX Digital</p><p>• Licitação expressiva</p><p>• Bidding por performance</p><p>• Seleção multicritério</p>
+                        <p>• RFX Digital</p><p>• Licitação expressiva</p><p>• Performance Bidding</p><p>• Seleção multicritério</p>
                     </div>
                 </details>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-blue-50 transition">
-                        Target Pricing <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-blue-50">Target Pricing <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
                         <p>• Preços lineares</p><p>• Análise de regressão</p><p>• Clean-sheet costing</p><p>• Benchmark competitivo</p>
                     </div>
                 </details>
-                <details class="bg-white border border-slate-200 rounded-lg group">
-                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-blue-50 transition">
-                        Leilões Reversos <span class="transition-transform duration-200">+</span>
-                    </summary>
+                <details class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                    <summary class="p-4 text-xs font-bold uppercase cursor-pointer flex justify-between items-center hover:bg-blue-50">Leilões Reversos <span>+</span></summary>
                     <div class="p-4 pt-0 text-[11px] text-slate-600 space-y-2 border-t border-slate-50">
                         <p>• Leilão Inglês</p><p>• Leilão Holandês</p><p>• Leilão Japonês</p><p>• Leilão Selado</p>
                     </div>
@@ -198,12 +180,9 @@
         </div>
     </main>
 
-    <footer class="bg-white border-t border-slate-200 py-12 mt-10">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="font-bold text-slate-800">Prof. Thiago Lima</p>
-            <p class="text-xs text-slate-400 mt-2 uppercase tracking-widest">MBA | Escola de Negócios | Consultoria Estratégica</p>
-            <div class="mt-6 text-[10px] text-slate-300">Framework baseado no The Purchasing Chessboard® da Kearney</div>
-        </div>
+    <footer class="bg-white border-t border-slate-200 py-12 text-center no-print">
+        <p class="font-bold text-slate-800">Prof. Thiago Lima</p>
+        <p class="text-xs text-slate-400 mt-2 uppercase tracking-widest">MBA | Escola de Negócios | Consultoria Estratégica</p>
     </footer>
 
 </body>
