@@ -10,7 +10,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; scroll-behavior: smooth; }
         @media print {
-            .no-print, .ia-box, button, nav { display: none !important; }
+            .no-print, button, nav { display: none !important; }
             body { background: white; padding: 0; }
             details:not([open]) { display: none !important; } 
             .strategy-col { width: 100% !important; border: 1px solid #eee; padding: 15px; margin-bottom: 20px; page-break-inside: avoid; }
@@ -27,7 +27,7 @@
 
     <nav class="bg-slate-900 text-white py-4 px-6 flex justify-between items-center no-print">
         <span class="font-black text-sm uppercase tracking-tighter italic text-blue-400">Strategic Procurement Assistant</span>
-        <span class="text-[10px] font-bold opacity-70 uppercase tracking-widest">Prof. Thiago Lima | MBA & Negociação</span>
+        <span class="text-[10px] font-bold opacity-70 uppercase tracking-widest">Prof. Thiago Lima</span>
     </nav>
 
     <header class="bg-white py-12 px-6 border-b border-slate-100 text-center">
@@ -39,27 +39,27 @@
 
         <section class="grid lg:grid-cols-2 gap-12 mb-16 no-print">
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 section-card">
-                <h3 class="text-lg font-bold mb-6 italic text-blue-900">1. Diagnóstico Matriz Kraljic</h3>
+                <h3 class="text-lg font-bold mb-6 italic text-blue-900">1. Parâmetros da Categoria (Kraljic)</h3>
                 <div class="space-y-6">
                     <input type="text" id="catNome" placeholder="Nome da Categoria..." class="w-full border-b p-2 outline-none focus:border-blue-500 font-bold mb-6">
                     <div>
-                        <label class="flex justify-between text-[10px] font-bold uppercase mb-2">Impacto no Negócio <span id="vImpacto" class="text-blue-600">Baixo</span></label>
+                        <label class="flex justify-between text-[10px] font-bold uppercase mb-2">Impacto no Lucro/Resultado <span id="vImpacto" class="text-blue-600">Baixo</span></label>
                         <input type="range" id="kImpacto" min="0" max="100" value="25" class="w-full accent-blue-900">
                     </div>
                     <div>
-                        <label class="flex justify-between text-[10px] font-bold uppercase mb-2">Risco de Suprimento <span id="vRisco" class="text-red-600">Baixo</span></label>
+                        <label class="flex justify-between text-[10px] font-bold uppercase mb-2">Risco de Suprimento/Mercado <span id="vRisco" class="text-red-600">Baixo</span></label>
                         <input type="range" id="kRisco" min="0" max="100" value="25" class="w-full accent-red-900">
                     </div>
                     <div class="p-4 bg-slate-900 text-white rounded-2xl border-l-4 border-blue-500">
-                        <p class="text-[9px] font-black text-slate-400 uppercase">Classificação:</p>
+                        <p class="text-[9px] font-black text-slate-400 uppercase">Classificação Kraljic:</p>
                         <h4 id="kraljicResult" class="text-lg font-black uppercase tracking-tighter italic">Não Crítico</h4>
-                        <p id="kraljicDica" class="text-[10px] text-slate-400 mt-1">Foco: Eficiência administrativa.</p>
+                        <p id="kraljicDica" class="text-[10px] text-slate-400 mt-1 italic">Foco: Eficiência administrativa.</p>
                     </div>
                 </div>
             </div>
 
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 section-card">
-                <h3 class="text-lg font-bold mb-6 italic text-blue-900">2. Balanço de Poder (Framework Kearney)</h3>
+                <h3 class="text-lg font-bold mb-6 italic text-blue-900">2. Poder de Negociação (Kearney)</h3>
                 <div class="space-y-6">
                     <div>
                         <label class="flex justify-between text-[10px] font-bold uppercase mb-2">Poder do Comprador <span id="vX">50%</span></label>
@@ -74,46 +74,50 @@
             </div>
         </section>
 
-        <section class="bg-slate-900 text-white p-10 rounded-[2.5rem] mb-16 shadow-2xl border-t-8 border-blue-500">
-            <div class="grid md:grid-cols-2 gap-10">
-                <div>
-                    <span class="text-[10px] font-black text-blue-400 uppercase tracking-widest">Diagnóstico Kearney</span>
-                    <h2 id="resEstrategia" class="text-3xl font-black italic tracking-tighter">Defina os parâmetros...</h2>
+        <section class="mb-16 no-print">
+            <div class="bg-slate-900 p-8 rounded-[2.5rem] text-white shadow-2xl border-t-8 border-blue-500">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-3xl">🎓</span>
+                    <div>
+                        <h3 class="text-xl font-bold uppercase tracking-tighter">Assistente de Diagnóstico</h3>
+                        <p class="text-blue-400 text-[10px] font-bold uppercase">Baseado nos Frameworks Kraljic & Kearney</p>
+                    </div>
                 </div>
-                <div class="md:border-l md:border-white/10 md:pl-10">
-                    <span class="text-[10px] font-black text-red-400 uppercase tracking-widest">Postura de Negociação</span>
-                    <p id="resPostura" class="text-sm text-slate-300 mt-2">Aguardando dados...</p>
-                </div>
+                <input type="text" id="catSpend" placeholder="Informe o Spend Anual (Opcional)..." class="w-full bg-white/5 border border-white/20 rounded-xl p-3 text-sm mb-4 outline-none focus:border-blue-500 transition">
+                <button onclick="gerarParecerTecnico()" class="bg-blue-600 hover:bg-blue-500 px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition shadow-lg">Gerar Recomendação Técnica</button>
+                
+                <div id="aiResponse" class="mt-8 p-6 bg-white/5 rounded-2xl text-sm hidden border border-white/10 leading-relaxed italic text-slate-300">
+                    </div>
             </div>
         </section>
 
         <section class="bg-white p-10 rounded-[2.5rem] border border-slate-200 mb-16 shadow-sm section-card">
-            <h2 class="text-2xl font-black text-slate-900 mb-8 border-b pb-4 uppercase italic">3. Planejamento de Negociação</h2>
+            <h2 class="text-2xl font-black text-slate-900 mb-8 border-b pb-4 uppercase italic">3. Preparação para a Mesa de Negociação</h2>
             <div class="grid md:grid-cols-2 gap-10">
                 <div class="space-y-2">
-                    <h4 class="text-xs font-bold text-blue-700 uppercase tracking-widest">BATNA (Opção B)</h4>
-                    <p class="text-[9px] text-slate-400 italic">Melhor Alternativa: O que faremos se não houver acordo?</p>
-                    <textarea id="batna" class="w-full bg-slate-50 border rounded-xl p-4 text-sm"></textarea>
+                    <h4 class="text-xs font-bold text-blue-700 uppercase">BATNA (Opção B)</h4>
+                    <p class="text-[9px] text-slate-400 italic">O que você fará se a negociação falhar? Sua alternativa fora da mesa.</p>
+                    <textarea id="batna" class="w-full bg-slate-50 border rounded-xl p-4 text-sm min-h-[100px]"></textarea>
                 </div>
                 <div class="space-y-2">
-                    <h4 class="text-xs font-bold text-red-700 uppercase tracking-widest">Valor de Reserva</h4>
-                    <p class="text-[9px] text-slate-400 italic">Ponto de Abandono: Qual o seu limite máximo?</p>
-                    <textarea id="reserva" class="w-full bg-slate-50 border rounded-xl p-4 text-sm"></textarea>
+                    <h4 class="text-xs font-bold text-red-700 uppercase">Valor de Reserva</h4>
+                    <p class="text-[9px] text-slate-400 italic">Ponto de Abandono: O valor limite para não fechar o negócio.</p>
+                    <textarea id="reserva" class="w-full bg-slate-50 border rounded-xl p-4 text-sm min-h-[100px]"></textarea>
                 </div>
                 <div class="space-y-2">
-                    <h4 class="text-xs font-bold text-green-700 uppercase tracking-widest">ZOPA</h4>
-                    <p class="text-[9px] text-slate-400 italic">Zona de Acordo: Intervalo provável de fechamento.</p>
-                    <textarea id="zopa" class="w-full bg-slate-50 border rounded-xl p-4 text-sm"></textarea>
+                    <h4 class="text-xs font-bold text-green-700 uppercase">ZOPA</h4>
+                    <p class="text-[9px] text-slate-400 italic">Zona de Acordo: O intervalo onde os interesses de ambos se cruzam.</p>
+                    <textarea id="zopa" class="w-full bg-slate-50 border rounded-xl p-4 text-sm min-h-[100px]"></textarea>
                 </div>
                 <div class="space-y-2">
-                    <h4 class="text-xs font-bold text-amber-700 uppercase tracking-widest">Concessões</h4>
-                    <p class="text-[9px] text-slate-400 italic">Moedas de Troca: O que cederemos e o que pediremos?</p>
-                    <textarea id="concessoes" class="w-full bg-slate-50 border rounded-xl p-4 text-sm"></textarea>
+                    <h4 class="text-xs font-bold text-amber-700 uppercase">Concessões</h4>
+                    <p class="text-[9px] text-slate-400 italic">Moedas de Troca: Itens que podem ser cedidos para obter ganhos.</p>
+                    <textarea id="concessoes" class="w-full bg-slate-50 border rounded-xl p-4 text-sm min-h-[100px]"></textarea>
                 </div>
             </div>
         </section>
 
-        <h3 class="text-2xl font-black uppercase tracking-tighter mb-8 text-center no-print">4. Seleção das 16 Alavancas (Purchasing Chessboard)</h3>
+        <h3 class="text-2xl font-black uppercase tracking-tighter mb-8 text-center no-print">4. Seleção das 16 Alavancas de Valor (Kearney)</h3>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20 no-print">
             <div class="strategy-col space-y-3">
                 <div class="p-3 bg-red-600 text-white rounded-xl font-bold text-[10px] uppercase text-center shadow-lg">Mudar Natureza</div>
@@ -161,18 +165,9 @@
             </div>
         </div>
 
-        <section class="mb-20 no-print ia-box">
-            <div class="bg-slate-900 p-10 rounded-[2.5rem] text-white shadow-2xl">
-                <h3 class="text-xl font-bold mb-6 flex items-center gap-3">✨ Assistente Gemini Consultivo</h3>
-                <textarea id="aiInput" rows="3" class="w-full bg-white/5 border border-white/20 rounded-2xl p-4 text-sm mb-4" placeholder="Descreva o cenário..."></textarea>
-                <button onclick="gerarRecomendacao()" class="bg-blue-600 px-10 py-4 rounded-xl font-black text-[10px] uppercase hover:bg-blue-500 transition">Solicitar Análise</button>
-                <div id="aiResponse" class="mt-8 p-6 bg-white/5 rounded-2xl text-xs italic hidden border border-white/10 leading-relaxed"></div>
-            </div>
-        </section>
-
         <div class="text-center no-print pb-20">
             <button onclick="window.print()" class="bg-slate-900 text-white px-16 py-6 rounded-2xl font-black text-xs shadow-2xl hover:bg-black transition transform hover:scale-105 uppercase tracking-widest">
-                Gerar Relatório Estratégico Final (PDF)
+                Gerar Relatório Final (PDF)
             </button>
         </div>
     </main>
@@ -211,23 +206,29 @@
             else { kRes = "Não Crítico"; kDica = "Baixo Risco / Baixo Impacto: Foque em eficiência administrativa."; }
             document.getElementById('kraljicResult').innerText = kRes;
             document.getElementById('kraljicDica').innerText = kDica;
-
-            let estrat = ""; let postura = "";
-            if(y > 50) { 
-                estrat = x > 50 ? "🤝 Vantagem Conjunta" : "💡 Mudar Natureza";
-                postura = "Negociação Integrativa (Ganha-Ganha) ou inovação técnica.";
-            } else { 
-                estrat = x > 50 ? "⚔️ Alavancar Competição" : "⚙️ Gerir Gastos";
-                postura = "Negociação Distributiva (Competitiva) com foco em margens.";
-            }
-            document.getElementById('resEstrategia').innerText = estrat;
-            document.getElementById('resPostura').innerText = "Diagnóstico Kearney: " + estrat + ". Recomendação: " + postura;
         }
 
-        function gerarRecomendacao() {
+        function gerarParecerTecnico() {
+            const x = document.getElementById('x').value;
+            const y = document.getElementById('y').value;
+            const r = document.getElementById('kRisco').value;
+            const i = document.getElementById('kImpacto').value;
+            const spend = document.getElementById('catSpend').value || "não informado";
             const res = document.getElementById('aiResponse');
+            
             res.classList.remove('hidden');
-            res.innerHTML = "<b>Análise Prof. Thiago Lima:</b> Cruze sempre o Risco Kraljic com o Poder Kearney. Se ambos forem altos, sua única saída é a Inovação Disruptiva.";
+            let recomendacao = "";
+
+            if (r > 60 && y > 60) {
+                recomendacao = `<b>DIAGNÓSTICO: ALTA VULNERABILIDADE.</b> O Spend de ${spend} está sob domínio do fornecedor. Sua BATNA é fraca. <b>AÇÃO:</b> No Tabuleiro Kearney, priorize 'Inovação Disruptiva' (Q1). Redesenhe o processo para quebrar o monopólio técnico ou substitua o material.`;
+            } else if (i > 60 && x > 60) {
+                recomendacao = `<b>DIAGNÓSTICO: OPORTUNIDADE DE ESCALA.</b> Com alto spend (${spend}) e baixo risco, você detém o poder. <b>AÇÃO:</b> Use 'Target Pricing' e 'Leilões Reversos' (Q4). A negociação deve ser distributiva para capturar margem.`;
+            } else if (y > 60 && x > 60) {
+                recomendacao = `<b>DIAGNÓSTICO: PARCERIA ESTRATÉGICA.</b> Ambos têm poder. <b>AÇÃO:</b> Siga para 'Vantagem Conjunta' (Q2). Use 'Open Book Costing' para reduzir o TCO sistêmico da categoria.`;
+            } else {
+                recomendacao = `<b>DIAGNÓSTICO: EFICIÊNCIA OPERACIONAL.</b> Categoria de baixo risco. <b>AÇÃO:</b> 'Gerir Gastos' (Q3). Agregue volume ou use Co-Sourcing para reduzir custos transacionais.`;
+            }
+            res.innerHTML = recomendacao;
         }
 
         document.querySelectorAll('input[type=range]').forEach(el => el.oninput = update);
