@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taxonomia Integral Kearney | Prof. Thiago Lima</title>
+    <title>Taxonomia Kearney Completa | Prof. Thiago Lima</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -12,6 +12,7 @@
         details summary::-webkit-details-marker { display: none; }
         .method-item { border-left: 3px solid #e2e8f0; padding-left: 10px; margin-bottom: 15px; font-size: 0.75rem; }
         .chart-container { position: relative; height: 350px; width: 100%; }
+        input[type=range] { accent-color: #1e3a8a; cursor: pointer; }
         .highlight-strat { border: 4px solid #3b82f6 !important; box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); }
     </style>
 </head>
@@ -28,21 +29,21 @@
 
         <section class="grid lg:grid-cols-2 gap-8">
             <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-200">
-                <h3 class="text-sm font-black uppercase text-blue-900 mb-8 border-b pb-2">Diagnóstico de Poder</h3>
+                <h3 class="text-sm font-black uppercase text-blue-900 mb-8 border-b pb-2">Diagnóstico de Poder (Kearney)</h3>
                 <div class="space-y-10">
                     <div>
                         <label class="flex justify-between text-[10px] font-black uppercase mb-3 text-slate-400">Poder de Demanda (Comprador) <span id="vY">50%</span></label>
-                        <input type="range" id="y" min="0" max="100" value="50" class="w-full h-2 bg-slate-100 rounded-lg appearance-none accent-blue-600">
+                        <input type="range" id="y" min="0" max="100" value="50" class="w-full h-2 bg-slate-100 rounded-lg appearance-none">
                     </div>
                     <div>
                         <label class="flex justify-between text-[10px] font-black uppercase mb-3 text-slate-400">Poder de Oferta (Fornecedor) <span id="vX">50%</span></label>
-                        <input type="range" id="x" min="0" max="100" value="50" class="w-full h-2 bg-slate-100 rounded-lg appearance-none accent-blue-600">
+                        <input type="range" id="x" min="0" max="100" value="50" class="w-full h-2 bg-slate-100 rounded-lg appearance-none">
                     </div>
                 </div>
                 <div id="parecerBox" class="mt-8 p-6 bg-slate-900 text-white rounded-2xl border-l-8 border-blue-500 shadow-xl">
                     <p class="text-[9px] font-black text-blue-400 uppercase tracking-widest mb-2 italic">Parecer Estratégico:</p>
-                    <h4 id="resEstrategia" class="text-lg font-black mb-2 uppercase italic tracking-tighter">Aguardando dados...</h4>
-                    <div id="textoParecer" class="text-[11px] italic leading-relaxed text-slate-300">Ajuste o balanço de poder para visualizar a diretriz.</div>
+                    <h4 id="resEstrategia" class="text-lg font-black mb-2 uppercase italic">Ajuste os Sliders</h4>
+                    <div id="textoParecer" class="text-[11px] italic leading-relaxed text-slate-300">Selecione o nível de poder para ver as alavancas sugeridas.</div>
                 </div>
             </div>
             <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-200">
@@ -50,150 +51,165 @@
             </div>
         </section>
 
-        <h2 class="text-2xl font-black text-center mb-12 uppercase tracking-tighter italic border-t pt-10">Taxonomia Completa: 4 Estratégias | 16 Alavancas | 64 Métodos</h2>
+        <h2 class="text-2xl font-black text-center mb-12 uppercase tracking-tighter italic border-t pt-10">Taxonomia Completa (64 Métodos)</h2>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
             
-            <div id="cardQ1" class="space-y-4 border-2 border-transparent p-1 rounded-2xl transition-all">
-                <details class="group bg-red-600 rounded-xl shadow-lg">
-                    <summary class="p-4 text-white font-black text-xs uppercase cursor-pointer flex justify-between">Mudar Natureza <span>▼</span></summary>
-                    <div class="p-4 bg-red-50 text-[10px] text-red-900 border-t italic leading-relaxed">Foco em inovação técnica e ruptura de monopólios.</div>
-                </details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">9. Ruptura por Inovação <span>+</span></summary>
-                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A9. Invenção sob demanda:</b> Metodologias TRIZ para rotas tecnológicas sem ferir patentes.</div>
-                    <div class="method-item"><b>B9. Alavancar rede de inovação:</b> Conectar startups e universidades para saltar sobre monopolistas.</div>
-                    <div class="method-item"><b>C9. Avaliação de Funcionalidade:</b> Focar no "porquê" para abrir portas a fixações novas.</div>
-                    <div class="method-item"><b>D9. Reconfiguração Cadeia:</b> Toll manufacturing para remover margem sobre insumo.</div>
-                </div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">10. Re-especificação <span>+</span></summary>
-                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A10. Avaliação de Spec:</b> Questionar tolerâncias milimétricas desnecessárias em workshops.</div>
-                    <div class="method-item"><b>B10. Design for Sourcing:</b> Projetar para maximizar a base e evitar o aprisionamento (lock-in).</div>
-                    <div class="method-item"><b>C10. Teardown de Produto:</b> Analisar concorrentes peça a peça para otimizar especificações próprias.</div>
-                    <div class="method-item"><b>D10. Design p/ Manufatura:</b> Ajustar desenho para simplificar e baratear a produção no parceiro.</div>
-                </div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">11. Mineração Técnica <span>+</span></summary>
-                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A11. Product Benchmark:</b> Identificar a melhor relação custo-benefício técnico do mercado mundial.</div>
-                    <div class="method-item"><b>B11. Redução de Complexidade:</b> Eliminar variantes (ex: 50 tipos de parafusos por 5 que atendam tudo).</div>
-                    <div class="method-item"><b>C11. Tierização:</b> Gerir apenas integradores (Tier 1) para reduzir carga administrativa interna.</div>
-                    <div class="method-item"><b>D11. Sustentabilidade:</b> Integrar critérios ESG no design para reduzir material e custo total.</div>
-                </div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">12. Gestão de Risco <span>+</span></summary>
-                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A12. Gestão de Gargalos:</b> Estoques estratégicos e fontes alternativas de emergência para falhas.</div>
-                    <div class="method-item"><b>B12. Framework Político:</b> Atuar junto a órgãos reguladores contra práticas monopolistas.</div>
-                    <div class="method-item"><b>C12. Processos Visíveis (VPO):</b> Transparência de fluxo para identificar riscos antes da parada.</div>
-                    <div class="method-item"><b>D12. Análise de Custo Central:</b> Entender drivers fundamentais para limitar preços arbitrários.</div>
-                </div></details>
-            </div>
-
-            <div id="cardQ2" class="space-y-4 border-2 border-transparent p-1 rounded-2xl transition-all">
-                <details class="group bg-purple-600 rounded-xl shadow-lg">
-                    <summary class="p-4 text-white font-black text-xs uppercase cursor-pointer flex justify-between">Vantagem Conjunta <span>▼</span></summary>
-                    <div class="p-4 bg-purple-50 text-[10px] text-purple-900 border-t italic leading-relaxed">Colaboração radical para aumentar o valor total da parceria.</div>
-                </details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">13. Parcerias de Valor <span>+</span></summary>
-                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A13. Aliança Estratégica:</b> União profunda com exclusividade e investimentos conjuntos.</div>
-                    <div class="method-item"><b>B13. Parceria por Projeto:</b> Divisão de custos de desenvolvimento e IP compartilhada.</div>
-                    <div class="method-item"><b>C13. Compartilhamento Receita:</b> Fornecedor recebe % do sucesso de vendas do produto final.</div>
-                    <div class="method-item"><b>D13. Compartilhamento Lucro:</b> Divisão contratual dos ganhos obtidos via melhoria contínua.</div>
-                </div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">14. Cadeia de Valor <span>+</span></summary>
-                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A14. Integração Vertical:</b> Adquirir fornecedor ou internalizar operação para controle total.</div>
-                    <div class="method-item"><b>B14. Sourcing por Valor:</b> Escolher parceiros que agreguem valor intangível (marca/design).</div>
-                    <div class="method-item"><b>C14. Acordos Inteligentes:</b> Contratos que se adaptam automaticamente a volumes e preços.</div>
-                    <div class="method-item"><b>D14. Ciclo de Vida (TCO):</b> Focar na durabilidade para reduzir custos de manutenção ao cliente.</div>
-                </div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">15. Planejamento Integrado <span>+</span></summary>
-                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A15. Gestão de Capacidade:</b> Compartilhar planos de produção para evitar ociosidade ou falta.</div>
-                    <div class="method-item"><b>B15. VMI:</b> Fornecedor repõe o estoque automaticamente, reduzindo capital de giro.</div>
-                    <div class="method-item"><b>C15. Estoque Virtual:</b> Visibilidade em tempo real de toda a rede como único pulmão logístico.</div>
-                    <div class="method-item"><b>D15. Benchmark Composto:</b> Avaliar a saúde de toda a cadeia frente a cadeias concorrentes.</div>
-                </div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">16. Custos Conjuntos <span>+</span></summary>
-                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A16. Supplier Development:</b> Investimento em treinamento/mentoria do parceiro para excelência.</div>
-                    <div class="method-item"><b>B16. Redução Colaborativa:</b> Equipes mistas no chão de fábrica atacando desperdícios Lean.</div>
-                    <div class="method-item"><b>C16. Benchmark Processos:</b> Comparar etapas fabris detalhadas com "best practices" mundiais.</div>
-                    <div class="method-item"><b>D16. Supplier Fitness:</b> Programa intensivo para reduzir custos fixos do parceiro estratégico.</div>
-                </div></details>
-            </div>
-
             <div id="cardQ3" class="space-y-4 border-2 border-transparent p-1 rounded-2xl transition-all">
                 <details class="group bg-slate-600 rounded-xl shadow-lg">
-                    <summary class="p-4 text-white font-black text-xs uppercase cursor-pointer flex justify-between">Gerir Gastos <span>▼</span></summary>
-                    <div class="p-4 bg-slate-50 text-[10px] text-slate-700 border-t italic leading-relaxed">Eficiência administrativa e agregação de volume interno.</div>
+                    <summary class="p-4 text-white font-black text-xs uppercase cursor-pointer flex justify-between">I. Gerenciar Gastos <span>▼</span></summary>
+                    <div class="p-4 bg-slate-50 text-[10px] text-slate-700 border-t italic leading-relaxed">Foco em eficiência de processos e transparência de dados.</div>
                 </details>
+
                 <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">1. Gestão de Demanda <span>+</span></summary>
                 <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A1. Redução de Demanda:</b> Questionar necessidade fundamental via políticas de austeridade.</div>
-                    <div class="method-item"><b>B1. Gestão de Contratos:</b> Garantir que termos negociados sejam aplicados em todas as transações.</div>
-                    <div class="method-item"><b>C1. Agregação Produtos:</b> Sinergia comercial ao agrupar diferentes tipos de produtos similares.</div>
-                    <div class="method-item"><b>D1. Agregação Unidades:</b> Unificar requisitos de diferentes plantas para escala de negociação.</div>
+                    <div class="method-item"><b>A1. Redução de Demanda:</b> Questionar a necessidade fundamental via políticas de austeridade e auditorias.</div>
+                    <div class="method-item"><b>B1. Gestão de Contratos:</b> Garantir que termos e preços negociados sejam aplicados em todas as transações.</div>
+                    <div class="method-item"><b>C1. Agregação entre Produtos:</b> Sinergia comercial ao agrupar produtos que podem ter um único parceiro.</div>
+                    <div class="method-item"><b>D1. Agregação entre Unidades:</b> Centralizar demanda de múltiplas localizações para escala regional.</div>
                 </div></details>
-                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">2. Co-Sourcing <span>+</span></summary>
+
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">2. Co-sourcing <span>+</span></summary>
                 <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A2. Terceirização (BPO):</b> Delegação de categorias inteiras a especialistas com escala massiva.</div>
-                    <div class="method-item"><b>B2. Comunidade Sourcing:</b> Fóruns internos para compartilhar e replicar melhores práticas.</div>
-                    <div class="method-item"><b>C2. Mega Fornecedor:</b> Consolidação em poucos players capazes de atender variadas frentes.</div>
-                    <div class="method-item"><b>D2. Consórcios de Compra:</b> União horizontal com outras empresas para aumentar força de mercado.</div>
+                    <div class="method-item"><b>A2. Terceirização (BPO):</b> Delegação de categorias a provedores especializados com escala massiva.</div>
+                    <div class="method-item"><b>B2. Comunidade de Sourcing:</b> Fóruns internos para compartilhar conhecimento técnico e replicar práticas.</div>
+                    <div class="method-item"><b>C2. Mega Fornecedor:</b> Consolidação de gastos em poucos fornecedores globais.</div>
+                    <div class="method-item"><b>D2. Consórcios de Compras:</b> União de empresas independentes para compras conjuntas.</div>
                 </div></details>
+
                 <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">3. Agregação de Volume <span>+</span></summary>
                 <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A3. Master Data Mgmt:</b> Harmonizar dados de materiais para identificar duplicidades ocultas.</div>
-                    <div class="method-item"><b>B3. Transparência Spend:</b> Mapear gastos via BI para identificar janelas de consolidação.</div>
-                    <div class="method-item"><b>C3. Mineração Custos:</b> Analisar histórico de faturas para estabelecer preços de referência internos.</div>
-                    <div class="method-item"><b>D3. Padronização:</b> Reduzir SKUs técnicos para aumentar escala de produção no fornecedor.</div>
+                    <div class="method-item"><b>A3. Gestão de Dados Mestre:</b> Harmonizar dados para identificar duplicidades e compras ocultas.</div>
+                    <div class="method-item"><b>B3. Transparência de Gastos:</b> Uso de BI para mapear cada centavo e janelas de consolidação.</div>
+                    <div class="method-item"><b>C3. Mineração de Custos:</b> Analisar histórico de faturas para estabelecer preços de referência.</div>
+                    <div class="method-item"><b>D3. Padronização:</b> Reduzir variedade técnica (SKUs) para aumentar escala de produção.</div>
                 </div></details>
+
                 <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">4. Mineração Comercial <span>+</span></summary>
                 <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A4. Processo RFI/RFP:</b> Coleta factual e estruturada para eliminar subjetividade na escolha.</div>
-                    <div class="method-item"><b>B4. Licitação Expressiva:</b> Permitir condições variáveis do fornecedor para identificar otimizações.</div>
-                    <div class="method-item"><b>C4. TCO:</b> Custo total da aquisição ao descarte, evitando a armadilha do preço baixo.</div>
-                    <div class="method-item"><b>D4. Desequilíbrios:</b> Aproveitar excesso de oferta ou crises para contratos favoráveis.</div>
+                    <div class="method-item"><b>A4. Processo RFI/RFP:</b> Coleta factual de dados para eliminar subjetividade na escolha.</div>
+                    <div class="method-item"><b>B4. Licitação Expressiva:</b> Permitir condições variáveis p/ identificar otimizações.</div>
+                    <div class="method-item"><b>C4. TCO:</b> Avaliar custo total da aquisição ao descarte, não apenas o preço.</div>
+                    <div class="method-item"><b>D4. Desequilíbrios:</b> Aproveitar excesso de capacidade ou crises para fechar contratos.</div>
                 </div></details>
             </div>
 
             <div id="cardQ4" class="space-y-4 border-2 border-transparent p-1 rounded-2xl transition-all">
                 <details class="group bg-blue-600 rounded-xl shadow-lg">
-                    <summary class="p-4 text-white font-black text-xs uppercase cursor-pointer flex justify-between">Alavancar Competição <span>▼</span></summary>
-                    <div class="p-4 bg-blue-50 text-[10px] text-blue-900 border-t italic leading-relaxed">Exploração agressiva da rivalidade do mercado.</div>
+                    <summary class="p-4 text-white font-black text-xs uppercase cursor-pointer flex justify-between">II. Alavancar Competição <span>▼</span></summary>
+                    <div class="p-4 bg-blue-50 text-[10px] text-blue-900 border-t italic leading-relaxed">Pressão de preços e exploração da rivalidade do mercado.</div>
                 </details>
+
                 <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">5. Globalização <span>+</span></summary>
                 <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A5. Sourcing Global:</b> Acessar líderes mundiais de custo e eficiência além do local.</div>
-                    <div class="method-item"><b>B5. LCC Sourcing:</b> Focar em regiões onde fatores de produção são estruturalmente baratos.</div>
-                    <div class="method-item"><b>C5. Modelagem de Preço:</b> Decompor preço em matérias-primas e margem para negociações reais.</div>
+                    <div class="method-item"><b>A5. Sourcing Global:</b> Identificar fornecedores mundiais p/ acessar líderes de custo.</div>
+                    <div class="method-item"><b>B5. Sourcing em LCC:</b> Focar em regiões onde labor/energia são estruturalmente baratos.</div>
+                    <div class="method-item"><b>C5. Modelagem de Preço:</b> Decompor preço em matérias-primas, labor e margem.</div>
                     <div class="method-item"><b>D5. Precificação Linear (LPP):</b> Correlacionar preço a drivers técnicos via estatística.</div>
                 </div></details>
+
                 <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">6. Licitação (Tendering) <span>+</span></summary>
                 <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A6. Leilões Reversos:</b> Plataformas online de competição real-time por menor preço.</div>
-                    <div class="method-item"><b>B6. Benchmarking Preços:</b> Confrontar com índices de mercado ou setores similares.</div>
-                    <div class="method-item"><b>C6. Preços Desagregados:</b> Quebrar sistemas complexos para remover margens ocultas.</div>
-                    <div class="method-item"><b>D6. Inteligência Mercado:</b> Monitorar ociosidade dos parceiros para vantagem na mesa.</div>
+                    <div class="method-item"><b>A6. Leilões Reversos:</b> Disputa online em tempo real p/ forçar custo marginal.</div>
+                    <div class="method-item"><b>B6. Benchmarking Preços:</b> Compara preços pagos com índices externos do setor.</div>
+                    <div class="method-item"><b>C6. Preços Desagregados:</b> Quebrar sistemas p/ eliminar margens ocultas do integrador.</div>
+                    <div class="method-item"><b>D6. Inteligência de Mercado:</b> Monitorar ociosidade p/ ganhar vantagem na mesa.</div>
                 </div></details>
+
                 <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">7. Target Pricing <span>+</span></summary>
                 <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A7. Regressão de Custos:</b> Uso de estatística multivariada para prever preço justo de itens.</div>
-                    <div class="method-item"><b>B7. Custo de Fatores:</b> Negociar quedas imediatas por redução de macro-insumos (ex: aço).</div>
-                    <div class="method-item"><b>C7. Gestão Compliance:</b> Garantir que a compra siga rigorosamente os contratos da licitação.</div>
-                    <div class="method-item"><b>D7. Consolidação Forn.:</b> Reduzir parceiros para focar volume e influência em poucos.</div>
+                    <div class="method-item"><b>A7. Regressão de Custos:</b> Fórmula multivariada p/ prever preço justo de itens.</div>
+                    <div class="method-item"><b>B7. Custo de Fatores:</b> Negociar reduções imediatas por quedas de macro-insumos.</div>
+                    <div class="method-item"><b>C7. Gestão Compliance:</b> Garantir compra apenas de fornecedores selecionados.</div>
+                    <div class="method-item"><b>D7. Consolidação:</b> Reduzir base p/ focar volume e influência em poucos.</div>
                 </div></details>
+
                 <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">8. Revisão de Preços <span>+</span></summary>
                 <div class="p-4 bg-slate-50 text-[10px] space-y-3">
-                    <div class="method-item"><b>A8. Agregação Gerações:</b> Capturar economias de curva de aprendizado ao longo do ciclo de vida.</div>
-                    <div class="method-item"><b>B8. Make or Buy:</b> Capacidade interna de produzir como teto de preço para o mercado.</div>
-                    <div class="method-item"><b>C8. Bestshoring:</b> Otimizar geografia equilibrando custo, logística e geopolítica.</div>
-                    <div class="method-item"><b>D8. Ciclo Fechado:</b> Integrar sistema compras ao orçamento para economia chegar ao caixa.</div>
+                    <div class="method-item"><b>A8. Agregação Gerações:</b> Capturar economias de curva de aprendizado (Life-cycle).</div>
+                    <div class="method-item"><b>B8. Make or Buy:</b> Capacidade interna de produzir como teto de preço p/ o mercado.</div>
+                    <div class="method-item"><b>C8. Bestshoring:</b> Otimizar geografia equilibrando custo e riscos geopolíticos.</div>
+                    <div class="method-item"><b>D8. Ciclo Fechado:</b> Integrar compras ao financeiro p/ economia chegar ao caixa.</div>
                 </div></details>
             </div>
 
+            <div id="cardQ1" class="space-y-4 border-2 border-transparent p-1 rounded-2xl transition-all">
+                <details class="group bg-red-600 rounded-xl shadow-lg">
+                    <summary class="p-4 text-white font-black text-xs uppercase cursor-pointer flex justify-between">III. Mudar Natureza <span>▼</span></summary>
+                    <div class="p-4 bg-red-50 text-[10px] text-red-900 border-t italic leading-relaxed">Inovação técnica e ruptura de monopólios.</div>
+                </details>
+
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">9. Ruptura por Inovação <span>+</span></summary>
+                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
+                    <div class="method-item"><b>A9. Invenção sob demanda:</b> Usar TRIZ p/ achar rotas sem infringir patentes.</div>
+                    <div class="method-item"><b>B9. Rede de Inovação:</b> Co-desenvolver com startups p/ saltar monopolista.</div>
+                    <div class="method-item"><b>C9. Avaliação Funcional:</b> Focar no "porquê" p/ achar fixações alternativas.</div>
+                    <div class="method-item"><b>D9. Reconfiguração Cadeia:</b> Toll manufacturing p/ remover margem sobre insumo.</div>
+                </div></details>
+
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">10. Re-especificação <span>+</span></summary>
+                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
+                    <div class="method-item"><b>A10. Avaliação Specs:</b> Workshops para questionar tolerâncias milimétricas.</div>
+                    <div class="method-item"><b>B10. Design for Sourcing:</b> Projetar p/ maximizar base e evitar aprisionamento.</div>
+                    <div class="method-item"><b>C10. Teardown:</b> Analisar rivais peça a peça p/ otimizar specs internas.</div>
+                    <div class="method-item"><b>D10. Design Manufatura:</b> Ajustar desenho p/ simplificar produção no parceiro.</div>
+                </div></details>
+
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">11. Mineração Técnica <span>+</span></summary>
+                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
+                    <div class="method-item"><b>A11. Product Benchmark:</b> Achar melhor relação custo-benefício técnico mundial.</div>
+                    <div class="method-item"><b>B11. Redução Complexidade:</b> Eliminar variantes e excesso de SKUs.</div>
+                    <div class="method-item"><b>C11. Tierização:</b> Gerir apenas Tier 1 p/ reduzir carga administrativa.</div>
+                    <div class="method-item"><b>D11. Sustentabilidade:</b> Critérios ESG p/ reduzir material e custo de longo prazo.</div>
+                </div></details>
+
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">12. Gestão de Risco <span>+</span></summary>
+                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
+                    <div class="method-item"><b>A12. Gestão Gargalos:</b> Fontes alternativas e estoques estratégicos de emergência.</div>
+                    <div class="method-item"><b>B12. Framework Político:</b> Atuar junto a governos contra práticas monopolistas.</div>
+                    <div class="method-item"><b>C12. Processos Visíveis:</b> VPO p/ identificar riscos antes da parada fabril.</div>
+                    <div class="method-item"><b>D12. Custo Central:</b> Entender drivers p/ limitar preços arbitrários.</div>
+                </div></details>
+            </div>
+
+            <div id="cardQ2" class="space-y-4 border-2 border-transparent p-1 rounded-2xl transition-all">
+                <details class="group bg-purple-600 rounded-xl shadow-lg">
+                    <summary class="p-4 text-white font-black text-xs uppercase cursor-pointer flex justify-between">IV. Vantagem Conjunta <span>▼</span></summary>
+                    <div class="p-4 bg-purple-50 text-[10px] text-purple-900 border-t italic leading-relaxed">Parcerias e otimização da cadeia de valor.</div>
+                </details>
+
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">13. Parcerias de Valor <span>+</span></summary>
+                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
+                    <div class="method-item"><b>A13. Aliança Estratégica:</b> União profunda com exclusividade e P&D comum.</div>
+                    <div class="method-item"><b>B13. Parceria por Projeto:</b> Co-desenvolvimento e IP compartilhada.</div>
+                    <div class="method-item"><b>C13. Revenue Sharing:</b> Fornecedor ganha sobre o sucesso final de vendas.</div>
+                    <div class="method-item"><b>D13. Profit Sharing:</b> Divisão contratual de ganhos de melhoria contínua.</div>
+                </div></details>
+
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">14. Cadeia de Valor <span>+</span></summary>
+                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
+                    <div class="method-item"><b>A14. Integração Vertical:</b> Adquirir fornecedor p/ controle total operacional.</div>
+                    <div class="method-item"><b>B14. Sourcing por Valor:</b> Selecionar parceiros que agreguem valor intangível.</div>
+                    <div class="method-item"><b>C14. Deal Inteligente:</b> Contratos adaptáveis p/ volumes e preços dinâmicos.</div>
+                    <div class="method-item"><b>D14. Ciclo de Vida:</b> Reduzir custos de garantia e manutenção p/ o cliente.</div>
+                </div></details>
+
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">15. Plano Integrado <span>+</span></summary>
+                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
+                    <div class="method-item"><b>A15. Capacid. Colaborativa:</b> Compartilhar planos p/ evitar ociosidade de máquinas.</div>
+                    <div class="method-item"><b>B15. VMI:</b> Fornecedor assume reposição, reduzindo capital de giro.</div>
+                    <div class="method-item"><b>C15. Estoque Virtual:</b> Visibilidade real da rede como um pulmão único.</div>
+                    <div class="method-item"><b>D15. Benchmark Cadeia:</b> Avaliar saúde da cadeia frente a concorrentes.</div>
+                </div></details>
+
+                <details class="bg-white border rounded-xl overflow-hidden shadow-sm"><summary class="p-3 text-[10px] font-bold uppercase cursor-pointer flex justify-between">16. Custos Conjuntos <span>+</span></summary>
+                <div class="p-4 bg-slate-50 text-[10px] space-y-3">
+                    <div class="method-item"><b>A16. Supplier Development:</b> Investir em mentoria e treinamento do parceiro.</div>
+                    <div class="method-item"><b>B16. Redução Colaborativa:</b> Equipes mistas atacando desperdícios Lean fabris.</div>
+                    <div class="method-item"><b>C16. Benchmark Processo:</b> Comparar etapas detalhadas com o topo do mundo.</div>
+                    <div class="method-item"><b>D16. Supplier Fitness:</b> Programa p/ reduzir custos fixos do fornecedor.</div>
+                </div></details>
+            </div>
         </div>
     </main>
 
@@ -201,12 +217,12 @@
         const ctx = document.getElementById('mainChart').getContext('2d');
         const chart = new Chart(ctx, { 
             type: 'scatter', 
-            data: { datasets: [{ label: 'Poder', data: [{x: 50, y: 50}], backgroundColor: '#1e3a8a', pointRadius: 18, hoverRadius: 22 }] }, 
+            data: { datasets: [{ data: [{x: 50, y: 50}], backgroundColor: '#1e3a8a', pointRadius: 18 }] }, 
             options: { 
                 responsive: true, maintainAspectRatio: false, 
                 scales: { 
-                    x: { min: 0, max: 100, title: { display: true, text: 'Poder de Oferta (Fornecedor)', font: {size: 11, weight: 'bold'} } }, 
-                    y: { min: 0, max: 100, title: { display: true, text: 'Poder de Demanda (Comprador)', font: {size: 11, weight: 'bold'} } } 
+                    x: { min: 0, max: 100, title: { display: true, text: 'Poder de Oferta (Fornecedor)' } }, 
+                    y: { min: 0, max: 100, title: { display: true, text: 'Poder de Demanda (Comprador)' } } 
                 }, 
                 plugins: { legend: { display: false } } 
             } 
@@ -224,20 +240,20 @@
 
             let estrat = ""; let desc = "";
             if (x < 50 && y < 50) {
-                estrat = "I. Manage Spend (Gerenciar Gastos)";
-                desc = "Foco em **Eficiência**. Use as alavancas 1 a 4 para reduzir custos administrativos e agregar volume interno.";
+                estrat = "I. Gerenciar Gastos";
+                desc = "Cenário de baixo poder mútuo. Priorize eficiência e agregação de volume interno (Alavancas 1 a 4).";
                 document.getElementById('cardQ3').classList.add('highlight-strat');
             } else if (x < 50 && y >= 50) {
-                estrat = "II. Leverage Competition (Alavancar Competição)";
-                desc = "Foco em **Pressão**. Use as alavancas 5 a 8. Capture margem via rivalidade e sourcing global.";
+                estrat = "II. Alavancar Competição";
+                desc = "Domínio do Comprador. Pressione margens via rivalidade e leilões (Alavancas 5 a 8).";
                 document.getElementById('cardQ4').classList.add('highlight-strat');
             } else if (x >= 50 && y < 50) {
-                estrat = "III. Change Nature (Mudar Natureza)";
-                desc = "Foco em **Inovação**. Use as alavancas 9 a 12. Quebre o monopólio técnico via re-especificação.";
+                estrat = "III. Mudar Natureza";
+                desc = "Domínio do Fornecedor. Quebre monopólios via inovação e re-especificação (Alavancas 9 a 12).";
                 document.getElementById('cardQ1').classList.add('highlight-strat');
             } else {
-                estrat = "IV. Seek Joint Advantage (Vantagem Conjunta)";
-                desc = "Foco em **Colaboração**. Use as alavancas 13 a 16. Ambos ganham com integração total.";
+                estrat = "IV. Vantagem Conjunta";
+                desc = "Alto poder mútuo. Foque em colaboração e integração de cadeia (Alavancas 13 a 16).";
                 document.getElementById('cardQ2').classList.add('highlight-strat');
             }
             document.getElementById('resEstrategia').innerText = estrat;
